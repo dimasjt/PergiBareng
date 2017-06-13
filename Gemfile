@@ -38,6 +38,13 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'rubocop', require: false
   gem 'annotate'
+
+
+  gem 'guard', require: false
+  gem 'guard-bundler', require: false
+  gem 'guard-livereload', require: false
+  gem 'guard-rspec', require: false
+  gem 'terminal-notifier-guard', require: false
 end
 
 group :test do
