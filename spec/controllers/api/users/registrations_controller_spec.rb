@@ -6,10 +6,12 @@ describe Api::Users::RegistrationsController, type: :controller do
 
     it "should create user" do
       post :create, params: { user: user_attrs }, format: :json
+      user = User.first
       expect(response.status).to eq 201
       expect(User.count).to eq 1
       expect(response.body).to include_json(
-        email: user_attrs[:email]
+        email: user_attrs[:email],
+        auth_token: user.auth_token_api_attribute
       )
     end
 

@@ -39,7 +39,13 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  include HasApi
+
   before_create :ensure_auth_token
+
+  def self.auth_api_attributes
+    %w(id email created_at auth_token_api_attribute)
+  end
 
   def self.authenticate(token)
     id, token = token.try(:split, ".")
@@ -48,8 +54,8 @@ class User < ApplicationRecord
     user if user && Devise.secure_compare(user.auth_token, token)
   end
 
-  def authentication_token
-    "#{id}.#{auth_token}"
+  def auth_token_api_attribute
+    "#{id}.#{auth_token}" if auth_token.present?
   end
 
   def ensure_auth_token
