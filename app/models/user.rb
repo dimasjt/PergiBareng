@@ -41,6 +41,8 @@ class User < ApplicationRecord
 
   include HasApi
 
+  has_many :places, dependent: :destroy
+
   before_create :ensure_auth_token
 
   def self.auth_api_attributes

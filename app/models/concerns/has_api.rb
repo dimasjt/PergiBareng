@@ -14,10 +14,10 @@ module HasApi
     end
 
     def hash_api(resource, exposed_attributes, nested_namespace)
-      Hash[*exposed_attributes.map do |a|
+      Hash[*exposed_attributes.flat_map do |a|
         value = resource.send(a)
         [key_name(a), api_value(value, nested_namespace)]
-      end.flatten(1)]
+      end]
     end
 
     def key_name attr
@@ -40,8 +40,17 @@ module HasApi
       index_api_attributes
     end
 
+    def image_nested(value)
+      keys = ImageUploader.versions.keys
+      Hash[*keys.map do |key|
+        [key, value.send(key).url]
+      end.push([:original, value.url]).flatten(1)]
+    end
+
     def api_value(value, nested_namespace = nil)
-      if value.respond_to?(:to_api_data) && !value.is_a?(Array)
+      if value.instance_of? ImageUploader
+        image_nested(value)
+      elsif value.respond_to?(:to_api_data) && !value.is_a?(Array)
         value.to_api_data(nested_namespace || :nested)
       else
         value

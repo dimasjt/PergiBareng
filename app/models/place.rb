@@ -11,10 +11,23 @@
 #  image       :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  user_id     :integer
+#
+# Indexes
+#
+#  index_places_on_user_id  (user_id)
 #
 
 class Place < ApplicationRecord
   mount_uploader :image, ImageUploader
 
+  include HasApi
+
+  belongs_to :user
+
   validates :name, :description, :address, presence: true
+
+  def self.index_api_attributes
+    %w(id name description image)
+  end
 end

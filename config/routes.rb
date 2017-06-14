@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     end
 
     namespace :v1 do
+      resources :places, except: [:new, :edit]
     end
   end
 
