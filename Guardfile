@@ -1,7 +1,7 @@
 ignore %r{^ignored/path/}, /public/
 filter /\.txt$/, /.*\.zip/
 
-notification :terminal_notifier
+notification :terminal_notifier if `uname` =~ /Darwin/
 
 group :frontend do
   guard 'livereload' do

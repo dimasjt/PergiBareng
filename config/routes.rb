@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "pages#index"
 
-  devise_for :users, only: []
+  devise_for :users, only: [:confirmations]
 
   namespace :api, defaults: { format: :json } do
     devise_scope :user do

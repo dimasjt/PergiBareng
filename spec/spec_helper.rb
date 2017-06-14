@@ -19,6 +19,8 @@
 
 require "simplecov"
 require "database_cleaner"
+require "factory_girl"
+require "devise"
 
 SimpleCov.start "rails"
 
@@ -33,6 +35,8 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.include FactoryGirl::Syntax::Methods
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

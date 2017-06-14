@@ -2,7 +2,10 @@
 
 FactoryGirl.define do
   factory :user do
-    email "MyString"
-    password "MyString"
+  end
+
+  factory :user_credential, class: User do
+    email { Faker::Internet.email }
+    password { "secr33t()" }
   end
 end
