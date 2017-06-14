@@ -1,12 +1,14 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import React from "react";
+import ReactDOM from "react-dom";
+import injectTapEventPlugin from "react-tap-event-plugin";
 
-import Main from './Main';
+import Main from "./Main";
 
-document.addEventListener('DOMContentLoaded', () => {
+injectTapEventPlugin();
+
+document.addEventListener("DOMContentLoaded", () => {
   ReactDOM.render(
     <Main />,
-    document.getElementById('root'),
+    document.getElementById("root"),
   )
 })
