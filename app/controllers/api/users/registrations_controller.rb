@@ -22,7 +22,7 @@ class Api::Users::RegistrationsController < Api::Users::UsersController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+      respond_with render_errors(resource), location: root_path
     end
   end
 
