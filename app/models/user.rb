@@ -22,6 +22,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  auth_token             :text
 #
 # Indexes
 #
@@ -37,4 +38,32 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
+
+  before_create :ensure_auth_token
+
+  def self.authenticate(token)
+    id, token = token.try(:split, ".")
+    user = User.find_by(id: id)
+
+    user if user && Devise.secure_compare(user.auth_token, token)
+  end
+
+  def authentication_token
+    "#{id}.#{auth_token}"
+  end
+
+  def ensure_auth_token
+    if auth_token.blank?
+      self.auth_token = generate_auth_token
+    end
+  end
+
+  private
+
+  def generate_auth_token
+    loop do
+      token = Devise.friendly_token
+      break token unless User.where(auth_token: token).first
+    end
+  end
 end
