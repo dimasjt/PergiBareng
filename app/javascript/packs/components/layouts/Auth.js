@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import { Paper, TextField, RaisedButton as Button } from "material-ui";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import * as actions from "../../actions/auth";
 
 const styles = {
   container: {
@@ -16,7 +20,7 @@ const styles = {
   },
 };
 
-export default class Auth extends Component {
+class Auth extends Component {
   constructor() {
     super();
 
@@ -43,11 +47,21 @@ export default class Auth extends Component {
       }
     });
   }
+  registerUser = (event) => {
+    event.preventDefault();
+    let user = {
+      user: this.state.register,
+    };
+
+    this.props.actions.registerUser(user);
+    console.log(this.props.actions)
+  }
   render() {
     return (
       <div style={styles.container}>
         <Paper zDepth={1} style={styles.wrapper}>
-          <form name="register">
+          <form name="register" onSubmit={this.registerUser}>
+            <h1>Register</h1>
             <TextField
               hintText="Email"
               fullWidth
@@ -63,7 +77,7 @@ export default class Auth extends Component {
               onChange={this.handleChange}
             />
             <br />
-            <Button label="Login" primary />
+            <Button label="Login" primary onTouchTap={this.registerUser} />
           </form>
         </Paper>
 
@@ -90,3 +104,8 @@ export default class Auth extends Component {
     );
   }
 }
+
+export default connect(
+  state => state,
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+)(Auth);
