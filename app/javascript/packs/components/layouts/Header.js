@@ -1,6 +1,20 @@
 import React from "react";
 import { AppBar, Drawer, MenuItem } from "material-ui";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
+
+const styles = {
+  link: {
+    textDecoration: "none",
+  },
+};
+
+const HeaderItem = ({ path, openDrawer, label }) => {
+  return (
+    <Link to={path} style={styles.link}>
+      <MenuItem onTouchTap={openDrawer}>{label}</MenuItem>
+    </Link>
+  );
+}
 
 export default class Header extends React.Component {
   constructor() {
@@ -12,9 +26,6 @@ export default class Header extends React.Component {
   }
   openDrawer = () => {
     this.setState({ drawer: !this.state.drawer });
-  }
-  redirect = (pathname) => {
-    <Redirect to={pathname} />
   }
   render() {
     return (
@@ -28,7 +39,8 @@ export default class Header extends React.Component {
           docked={false}
           onRequestChange={(drawer) => this.setState({drawer})}
         >
-          <MenuItem onTouchTap={this.redirect("/auth")}>Login / Register</MenuItem>
+          <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
+          <HeaderItem path="/auth" openDrawer={this.openDrawer} label="Login / Register" />
         </Drawer>
       </div>
     );
