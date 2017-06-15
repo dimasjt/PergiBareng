@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-import { Paper, TextField, RaisedButton as Button } from "material-ui";
+import { Paper, RaisedButton as Button } from "material-ui";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { TextField } from "redux-form-material-ui";
 
 import * as actions from "../../actions/auth";
 
@@ -20,85 +22,50 @@ const styles = {
   },
 };
 
+const Form = (props) => {
+  const { handleSubmit, submitting, header } = props;
+  return (
+    <form name="register" onSubmit={handleSubmit}>
+      <h1>{header}</h1>
+      <Field
+        name="email"
+        component={TextField}
+        hintText="Email"
+        fullWidth
+      />
+      <Field
+        name="password"
+        component={TextField}
+        hintText="Password"
+        type="password"
+        fullWidth
+      />
+      <Button label="Login" primary type="submit" />
+    </form>
+  )
+}
+
+const RegisterForm = reduxForm({
+  form: 'register',
+})(Form);
+
+const LoginForm = reduxForm({
+  form: 'login',
+})(Form);
+
 class Auth extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      register: {
-        email: null,
-        password: null,
-      },
-      login: {
-        email: null,
-        password: null,
-      },
-    };
-  }
-  handleChange = (event) => {
-    let value = event.target.value;
-    let name = event.target.name;
-    let type = event.target.form.name;
-
-    this.setState({
-      [type]: {
-        ...this.state[type],
-        [name]: value,
-      }
-    });
-  }
-  registerUser = (event) => {
-    event.preventDefault();
-    let user = {
-      user: this.state.register,
-    };
-
-    this.props.actions.registerUser(user);
-    console.log(this.props.actions)
+  registerUser = (values) => {
+    this.props.actions.registerUser(values);
   }
   render() {
     return (
       <div style={styles.container}>
         <Paper zDepth={1} style={styles.wrapper}>
-          <form name="register" onSubmit={this.registerUser}>
-            <h1>Register</h1>
-            <TextField
-              hintText="Email"
-              fullWidth
-              type="email"
-              name="email"
-              onChange={this.handleChange}
-            />
-            <TextField
-              hintText="Password"
-              fullWidth
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <br />
-            <Button label="Login" primary onTouchTap={this.registerUser} />
-          </form>
+          <RegisterForm header="Register" onSubmit={this.registerUser} />
         </Paper>
 
         <Paper zDepth={1} style={styles.wrapper}>
-          <form name="login">
-            <TextField
-              hintText="Email"
-              fullWidth
-              type="email"
-              name="email"
-              onChange={this.handleChange}
-            />
-            <TextField
-              hintText="Password"
-              fullWidth
-              type="password"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <Button label="Register" primary />
-          </form>
+          <LoginForm header="Login" />
         </Paper>
       </div>
     );

@@ -8,7 +8,10 @@ export function registerUser(user) {
   return async (dispatch) => {
     try {
       let result = await Axio.post("/register", { user });
-      console.log(result);
+      dispatch({
+        type: USER_REGISTERED,
+        user: result.data,
+      });
     } catch (error) {
       console.log(error)
     }
