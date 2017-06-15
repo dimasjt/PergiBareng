@@ -1,8 +1,8 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
   Route,
 } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Home from "./components/layouts/Home";
 import Auth from "./components/layouts/Auth";
@@ -16,9 +16,9 @@ const styles = {
   },
 };
 
-const routes = () => {
+const Routes = ({ history, ConnectedRouter }) => {
   return (
-    <Router>
+    <ConnectedRouter history={history}>
       <div>
         <Header />
 
@@ -27,8 +27,13 @@ const routes = () => {
           <Route path="/auth" component={Auth} />
         </div>
       </div>
-    </Router>
+    </ConnectedRouter>
   );
 };
 
-export default routes;
+Routes.propTypes = {
+  history: PropTypes.object.isRequired,
+  ConnectedRouter: PropTypes.func.isRequired,
+};
+
+export default Routes;

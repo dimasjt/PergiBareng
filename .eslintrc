@@ -10,11 +10,16 @@
       "jsx": true
     }
   },
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
     "arrow-body-style": 0,
     "quotes": ["error", "double"],
     "jsx-quotes": ["error", "prefer-double"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-    "prefer-arrow-callback": ["error"]
+    "prefer-arrow-callback": ["error"],
+    "react/forbid-prop-types": 0
   }
 }
