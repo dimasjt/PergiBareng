@@ -31,7 +31,7 @@ export default class Header extends React.Component {
     return (
       <div>
         <AppBar
-          title="Header"
+          title="PergiBareng"
           onLeftIconButtonTouchTap={this.openDrawer}
         ></AppBar>
         <Drawer
@@ -39,6 +39,7 @@ export default class Header extends React.Component {
           docked={false}
           onRequestChange={(drawer) => this.setState({drawer})}
         >
+          <AppBar title="PergiBareng" iconElementLeft={<div />} />
           <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
           <HeaderItem path="/auth" openDrawer={this.openDrawer} label="Login / Register" />
         </Drawer>
