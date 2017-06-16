@@ -1,6 +1,9 @@
 {
   "name": "PergiBareng",
   "private": true,
+  "engines": {
+    "node": "~6"
+  },
   "dependencies": {
     "autoprefixer": "^7.1.1",
     "axios": "^0.16.2",
