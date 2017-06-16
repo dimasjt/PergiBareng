@@ -55,7 +55,8 @@ class User < ApplicationRecord
   end
 
   def self.authenticate(token)
-    JWT.decode(token, User.secret_token).try(:first)
+    decoded = JWT.decode(token, User.secret_token).try(:first)
+    User.find(decoded[:id])
   rescue JWT::DecodeError
     nil
   end
