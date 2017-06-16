@@ -22,7 +22,6 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  auth_token             :text
 #
 # Indexes
 #
@@ -43,35 +42,25 @@ class User < ApplicationRecord
 
   has_many :places, dependent: :destroy
 
-  before_create :ensure_auth_token
-
   def self.auth_api_attributes
-    %w(id email created_at auth_token_api_attribute)
+    %w(auth_token)
+  end
+
+  def self.self_api_attributes
+    %w(id email created_at confirmed_at)
+  end
+
+  def self.secret_token
+    ENV["JWT_SECRET"]
   end
 
   def self.authenticate(token)
-    id, token = token.try(:split, ".")
-    user = User.find_by(id: id)
-
-    user if user && Devise.secure_compare(user.auth_token, token)
+    JWT.decode(token, User.secret_token).try(:first)
+  rescue JWT::DecodeError
+    nil
   end
 
-  def auth_token_api_attribute
-    "#{id}.#{auth_token}" if auth_token.present?
-  end
-
-  def ensure_auth_token
-    if auth_token.blank?
-      self.auth_token = generate_auth_token
-    end
-  end
-
-  private
-
-  def generate_auth_token
-    loop do
-      token = Devise.friendly_token
-      break token unless User.where(auth_token: token).first
-    end
+  def auth_token
+    JWT.encode(to_api_data(:self), User.secret_token)
   end
 end
