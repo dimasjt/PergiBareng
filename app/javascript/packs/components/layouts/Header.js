@@ -20,11 +20,23 @@ const HeaderItem = ({ path, openDrawer, label }) => {
   );
 }
 
-const LogoutItem = ({actions}) => {
+const UnLogged = ({openDrawer}) => {
   return (
-    <a>
-      <MenuItem onTouchTap={actions.logout}>Logout</MenuItem>
-    </a>
+    <div>
+      <HeaderItem path="/auth" openDrawer={openDrawer} label="Login / Register" />
+    </div>
+  );
+};
+
+const LoggedIn = ({openDrawer, actions}) => {
+  return (
+    <div>
+      <HeaderItem path="/places" openDrawer={openDrawer} label="Places" />
+      <HeaderItem path="/profile" openDrawer={openDrawer} label="Profile" />
+      <a>
+        <MenuItem onTouchTap={actions.logout}>Logout</MenuItem>
+      </a>
+    </div>
   );
 };
 
@@ -40,17 +52,6 @@ class Header extends React.Component {
     this.setState({ drawer: !this.state.drawer });
   }
   render() {
-    const unloggedComponents = (
-      <HeaderItem path="/auth" openDrawer={this.openDrawer} label="Login / Register" />
-    );
-
-    const loggedComponents = (
-      <div>
-        <HeaderItem path="/places" openDrawer={this.openDrawer} label="Places" />
-        <LogoutItem {...this.props} />
-      </div>
-    );
-
     return (
       <div>
         <AppBar
@@ -63,7 +64,7 @@ class Header extends React.Component {
           onRequestChange={(drawer) => this.setState({drawer})}
         >
           <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
-          { this.props.user ? loggedComponents : unloggedComponents }
+          { this.props.user ? <LoggedIn {...this.props} openDrawer={this.openDrawer} /> : <UnLogged {...this.props} openDrawer={this.openDrawer} /> }
         </Drawer>
       </div>
     );
