@@ -8,6 +8,8 @@ class Api::ApiController < ActionController::Base
   def authenticate_user_from_token!
     if user = User.authenticate(params[:auth_token])
       sign_in user, store: false
+    else
+      false
     end
   end
 end
