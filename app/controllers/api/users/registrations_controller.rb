@@ -11,7 +11,7 @@ class Api::Users::RegistrationsController < Devise::RegistrationsController
       else
         flash_message = find_message(:"signed_up_but_#{resource.inactive_message}")
         expire_data_after_sign_in!
-        render_json({}, status: 401, flash: flash_message)
+        render_json({}, status: 201, flash: flash_message)
       end
     else
       clean_up_passwords resource
