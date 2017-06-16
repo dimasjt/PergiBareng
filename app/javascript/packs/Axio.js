@@ -1,5 +1,5 @@
-
 import axios from "axios";
+
 const AxioDevise = axios.create({
   baseURL: "/api",
 });

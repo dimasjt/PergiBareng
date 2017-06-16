@@ -57,6 +57,9 @@ class Auth extends Component {
   registerUser = (values) => {
     this.props.actions.registerUser(values);
   }
+  loginUser = (values) => {
+    this.props.actions.loginUser(values);
+  }
   render() {
     return (
       <div style={styles.container}>
@@ -65,7 +68,7 @@ class Auth extends Component {
         </Paper>
 
         <Paper zDepth={1} style={styles.wrapper}>
-          <LoginForm header="Login" />
+          <LoginForm header="Login" onSubmit={this.loginUser} />
         </Paper>
       </div>
     );

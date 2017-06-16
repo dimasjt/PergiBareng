@@ -1,6 +1,10 @@
 import React from "react";
 import { AppBar, Drawer, MenuItem } from "material-ui";
 import { Redirect, Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+
+import * as actions from "../../actions/auth";
 
 const styles = {
   link: {
@@ -16,7 +20,15 @@ const HeaderItem = ({ path, openDrawer, label }) => {
   );
 }
 
-export default class Header extends React.Component {
+const LogoutItem = ({actions}) => {
+  return (
+    <a>
+      <MenuItem onTouchTap={actions.logout}>Logout</MenuItem>
+    </a>
+  );
+};
+
+class Header extends React.Component {
   constructor() {
     super();
 
@@ -28,6 +40,17 @@ export default class Header extends React.Component {
     this.setState({ drawer: !this.state.drawer });
   }
   render() {
+    const unloggedComponents = (
+      <HeaderItem path="/auth" openDrawer={this.openDrawer} label="Login / Register" />
+    );
+
+    const loggedComponents = (
+      <div>
+        <HeaderItem path="/places" openDrawer={this.openDrawer} label="Places" />
+        <LogoutItem {...this.props} />
+      </div>
+    );
+
     return (
       <div>
         <AppBar
@@ -40,9 +63,14 @@ export default class Header extends React.Component {
           onRequestChange={(drawer) => this.setState({drawer})}
         >
           <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
-          <HeaderItem path="/auth" openDrawer={this.openDrawer} label="Login / Register" />
+          { this.props.user ? loggedComponents : unloggedComponents }
         </Drawer>
       </div>
     );
   }
 }
+
+export default connect(
+  state => state,
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+)(Header);

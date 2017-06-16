@@ -22,4 +22,3 @@ class Api::Users::SessionsController < Devise::SessionsController
     respond_to_on_destroy
   end
 end
-
