@@ -2,7 +2,7 @@
   "name": "PergiBareng",
   "private": true,
   "engines": {
-    "node": "~6"
+    "node": "~8.1.0"
   },
   "dependencies": {
     "autoprefixer": "^7.1.1",
