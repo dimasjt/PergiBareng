@@ -2,7 +2,7 @@ class Api::Users::SessionsController < Devise::SessionsController
   def create
     self.resource = User.find_for_database_authentication(email: sign_in_params[:email])
 
-    if resource.active_for_authentication?
+    if resource.try(:active_for_authentication?)
       if resource.valid_password?(sign_in_params[:password])
         sign_in(resource_name, resource)
         render_json resource.to_api_data(:auth), status: 200, flash: find_message(:signed_in)
