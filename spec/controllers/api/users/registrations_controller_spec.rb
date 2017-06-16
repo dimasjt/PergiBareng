@@ -6,12 +6,12 @@ describe Api::Users::RegistrationsController, type: :controller do
 
     it "should create user" do
       post :create, params: { user: user_attrs }, format: :json
-      user = User.first
-      expect(response.status).to eq 201
+      message = I18n.t("devise.registrations.signed_up_but_unconfirmed")
+      expect(response.status).to eq 401
       expect(User.count).to eq 1
       expect(response.body).to include_json(
-        email: user_attrs[:email],
-        auth_token: user.auth_token_api_attribute
+        errors: [message],
+        flash: message
       )
     end
 
@@ -23,7 +23,7 @@ describe Api::Users::RegistrationsController, type: :controller do
       expect(User.count).to eq 1
       expect(response.body).to include_json(
         errors: new_user.errors.messages,
-        flash: new_user.errors.full_messages
+        flash: new_user.errors.full_messages.first
       )
     end
   end

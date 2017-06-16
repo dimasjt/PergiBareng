@@ -18,6 +18,7 @@ gem "jbuilder", "~> 2.5"
 
 gem "carrierwave"
 gem "devise"
+gem "jwt"
 gem "foreman"
 gem "friendly_id"
 gem "kaminari"

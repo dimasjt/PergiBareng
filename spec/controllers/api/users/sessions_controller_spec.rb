@@ -9,10 +9,9 @@ describe Api::Users::SessionsController, type: :controller do
     it "should return user" do
       @user_attributes = { email: user.email, password: user.password }
 
-      expect(subject.status).to eq 201
+      expect(subject.status).to eq 200
       expect(subject.body).to include_json(
-        email: user.email,
-        auth_token: user.auth_token_api_attribute
+        auth_token: user.auth_token
       )
     end
 
