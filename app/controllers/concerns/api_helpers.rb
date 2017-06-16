@@ -15,7 +15,7 @@ module ApiHelpers
 
   def render_json(object, **options)
     if options[:flash]
-      object.merge!(flash: options[:flash])
+      object.merge!(flash: options[:flash], errors: [options[:flash]])
     end
 
     render json: object, status: options[:status] || 200

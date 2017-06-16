@@ -1,10 +1,17 @@
 class Api::Users::SessionsController < Devise::SessionsController
   def create
-    self.resource = warden.authenticate!(auth_options)
-    set_flash_message!(:notice, :signed_in)
-    sign_in(resource_name, resource)
-    yield resource if block_given?
-    respond_with resource.to_api_data(:auth), location: after_sign_in_path_for(resource)
+    self.resource = User.find_for_database_authentication(email: sign_in_params[:email])
+
+    if resource.active_for_authentication?
+      if resource.valid_password?(sign_in_params[:password])
+        sign_in(resource_name, resource)
+        render_json resource.to_api_data(:auth), status: 200, flash: find_message(:signed_in)
+      else
+        render_json({}, status: 422, flash: I18n.t("devise.failure.invalid"))
+      end
+    else
+      render_json({}, status: 401, flash: I18n.t("devise.failure.inactive"))
+    end
   end
 
   # DELETE /resource/sign_out
