@@ -12,13 +12,18 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  user_id     :integer
+#  slug        :string
 #
 # Indexes
 #
+#  index_places_on_slug     (slug) UNIQUE
 #  index_places_on_user_id  (user_id)
 #
 
 class Place < ApplicationRecord
+  extend FriendlyId
+  friendly_id :slug_candidates, use: [:slugged, :finders]
+
   mount_uploader :image, ImageUploader
 
   include HasApi
@@ -29,5 +34,14 @@ class Place < ApplicationRecord
 
   def self.index_api_attributes
     %w(id name description image)
+  end
+
+  private
+
+  def slug_candidates
+    [
+      :name,
+      [:name, :id]
+    ]
   end
 end

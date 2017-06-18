@@ -67,6 +67,6 @@ class Api::V1::ResourcesController < Api::V1::V1Controller
   end
 
   def resource
-    @resource ||= scoped_resources.find_by_uid!(params[:id])
+    @resource ||= scoped_resources.friendly.find(params[:id])
   end
 end

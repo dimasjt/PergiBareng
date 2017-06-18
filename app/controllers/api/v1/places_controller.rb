@@ -1,17 +1,4 @@
 class Api::V1::PlacesController < Api::V1::ResourcesController
-  before_action :set_place, only: [:show, :edit, :update, :destroy]
-
-  # GET /api/v1/places
-  # GET /api/v1/places.json
-  # def index
-  #   super
-  # end
-
-  # GET /api/v1/places/1
-  # GET /api/v1/places/1.json
-  def show
-  end
-
   # POST /api/v1/places
   # POST /api/v1/places.json
   def create
