@@ -33,7 +33,7 @@ class Place < ApplicationRecord
   validates :name, :description, :address, presence: true
 
   def self.index_api_attributes
-    %w(id name description image)
+    %w(id name description image slug)
   end
 
   private
