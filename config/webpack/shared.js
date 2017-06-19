@@ -10,10 +10,17 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const extname = require('path-complete-extname')
 const { env, settings, output, loadersDir } = require('./configuration.js')
+const yamlConfig = require('node-yaml-config');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`
 const entryPath = join(settings.source_path, settings.source_entry_path)
 const packPaths = sync(join(entryPath, extensionGlob))
+
+const envConfig = yamlConfig.load('./config/application.yml');
+
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = envConfig.JWT_SECRET;
+}
 
 module.exports = {
   entry: packPaths.reduce(
