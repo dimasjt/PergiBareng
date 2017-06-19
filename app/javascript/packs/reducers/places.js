@@ -1,5 +1,15 @@
+import {
+  FETCHED_PLACES,
+  FETCHED_RECOMMENDED_PLACES,
+} from "../constants";
+
 function places(state = [], action) {
-  return state;
+  switch (action.type) {
+    case FETCHED_RECOMMENDED_PLACES:
+      return action.places;
+    default:
+      return state;
+  }
 }
 
 export default places;

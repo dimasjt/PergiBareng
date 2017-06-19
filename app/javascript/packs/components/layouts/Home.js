@@ -1,19 +1,12 @@
 import React, { Component } from "react";
 import { GridList, GridTile } from "material-ui/GridList";
-import { Subheader  } from "material-ui";
+import { Subheader } from "material-ui";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 import CardPlace from "../places/CardPlace";
 
-const places = [
-  { id: 1, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 2, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 3, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 4, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 5, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 6, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 7, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-  { id: 8, name: "Pangandaran", image: "http://4.bp.blogspot.com/-UQYrYL--_II/VgeIpDfDijI/AAAAAAAABgQ/pjIeaRUBhT8/s1600/Pantai%2Bpangandaran.jpg" },
-];
+import * as actions from "../../actions/places";
 
 const styles = {
   card: {
@@ -23,16 +16,12 @@ const styles = {
   },
 };
 
-export default class Home extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      places,
-    };
+class Home extends Component {
+  componentWillMount() {
+    this.props.actions.getRecommendedPlaces();
   }
   render() {
-    const cardPlaces = this.state.places.map((place) => {
+    const cardPlaces = this.props.places.map((place) => {
       return (
         <GridTile key={place.id}>
           <CardPlace {...this.props} place={place} />
@@ -52,4 +41,9 @@ export default class Home extends Component {
       </div>
     );
   }
-};
+}
+
+export default connect(
+  state => state,
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+)(Home);

@@ -11,7 +11,7 @@ export default class CardPlace extends Component {
     return (
       <Card>
         <CardMedia overlay={overlay}>
-          <img src={place.image} />
+          <img src={place.image.medium} />
         </CardMedia>
       </Card>
     )
