@@ -5,6 +5,13 @@ class Api::ApiController < ActionController::Base
 
   include ::ApiHelpers
 
+  rescue_from ActiveRecord::RecordNotFound do
+    render json: {
+      errors: ["Record not found"],
+      flash: "Record not found"
+    }, status: 404
+  end
+
   def authenticate_user_from_token!
     if user = User.authenticate(params[:auth_token])
       sign_in user, store: false

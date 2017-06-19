@@ -55,7 +55,7 @@ class Header extends React.Component {
     return (
       <div>
         <AppBar
-          title="Header"
+          title="PergiBareng"
           onLeftIconButtonTouchTap={this.openDrawer}
         ></AppBar>
         <Drawer
@@ -63,6 +63,7 @@ class Header extends React.Component {
           docked={false}
           onRequestChange={(drawer) => this.setState({drawer})}
         >
+          <AppBar title="PergiBareng" iconElementLeft={<div />} />
           <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
           { this.props.user ? <LoggedIn {...this.props} openDrawer={this.openDrawer} /> : <UnLogged {...this.props} openDrawer={this.openDrawer} /> }
         </Drawer>

@@ -8,6 +8,7 @@ import Home from "./components/layouts/Home";
 import Auth from "./components/layouts/Auth";
 import Header from "./components/layouts/Header";
 import Profile from "./components/layouts/Profile";
+import PlacePage from "./components/layouts/PlacePage";
 
 const styles = {
   container: {
@@ -25,6 +26,7 @@ const Routes = ({ history, ConnectedRouter }) => {
 
         <div style={styles.container}>
           <Route exact path="/" component={Home} />
+          <Route path="/places/:slug" component={PlacePage} />
           <Route path="/auth" component={Auth} />
           <Route path="/profile" component={Profile} />
         </div>
