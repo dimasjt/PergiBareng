@@ -13,10 +13,12 @@ class Api::ApiController < ActionController::Base
   end
 
   def authenticate_user_from_token!
-    if user = User.authenticate(params[:auth_token])
+    auth_token = request.headers["Authorization"].try(:sub, /Bearer /, "")
+
+    if auth_token && user = User.authenticate(auth_token)
       sign_in user, store: false
     else
-      false
+      render_json({}, status: 401, flash: "Unauthorized")
     end
   end
 end
