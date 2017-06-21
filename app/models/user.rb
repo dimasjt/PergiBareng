@@ -22,6 +22,11 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  avatar                 :string
+#  name                   :string
+#  birthdate              :string
+#  gender                 :integer          default("other")
+#  city                   :string
 #
 # Indexes
 #
@@ -32,16 +37,26 @@
 #
 
 class User < ApplicationRecord
+  GENDER = %w(other male female)
+  BIRTHDATE_REGEX = /\d{2}\/\d{2}\/\d{4}/
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  mount_uploader :avatar, ImageUploader
+
   include HasApi
 
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
+
+  enum gender: GENDER
+
+  validates :name, :birthdate, :gender, :city, presence: true, on: :update
+  validates :birthdate, format: { with: BIRTHDATE_REGEX }, on: :update
 
   def self.auth_api_attributes
     %w(auth_token)
