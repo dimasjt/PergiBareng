@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { GridList, GridTile } from "material-ui/GridList";
+import { Tabs, Tab } from "material-ui/Tabs";
 
 import { place as placeReducer } from "../../reducers/places";
 import * as actions from "../../actions/places";
@@ -11,6 +13,34 @@ const PlaceHeader = (props) => {
     <div>
       <img src={place.image.large} alt={place.name} />
     </div>
+  );
+};
+
+const Overview = (props) => {
+  const { place } = props;
+  return (
+    <div>
+      <h2>Overview about {place.name}</h2>
+      <p>{place.description}</p>
+    </div>
+  );
+};
+
+const Schedule = (props) => {
+  return (
+    <div>Schedule</div>
+  );
+};
+
+const Review = (props) => {
+  return (
+    <div>Review</div>
+  );
+};
+
+const Map = (props) => {
+  return (
+    <div>Map</div>
   );
 };
 
@@ -27,7 +57,23 @@ class PlacePage extends React.Component {
     return (
       <div>
         <PlaceHeader place={place} />
-        PlacePage
+        <GridList
+          cellHeight="auto"
+          cols={3}
+        >
+          <GridTile cols={2}>
+            <Tabs>
+              <Tab label="Overview"><Overview {...this.props} /></Tab>
+              <Tab label="Schedule"><Schedule {...this.props} /></Tab>
+              <Tab label="Reviews"><Review {...this.props} /></Tab>
+              <Tab label="Map"><Map {...this.props} /></Tab>
+            </Tabs>
+          </GridTile>
+
+          <GridTile cols={1}>
+            Side Content
+          </GridTile>
+        </GridList>
       </div>
     );
   }
