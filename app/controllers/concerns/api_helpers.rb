@@ -13,6 +13,10 @@ module ApiHelpers
     }
   end
 
+  def json_show(object)
+    { controller_name.singularize => object.to_api_data(:show) }
+  end
+
   def render_json(object, **options)
     if options[:flash] && options[:status] >= 400
       object.merge!(flash: options[:flash], errors: [options[:flash]])

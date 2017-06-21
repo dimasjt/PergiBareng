@@ -41,6 +41,7 @@ class User < ApplicationRecord
   include HasApi
 
   has_many :places, dependent: :destroy
+  has_many :schedules, dependent: :destroy
 
   def self.auth_api_attributes
     %w(auth_token)

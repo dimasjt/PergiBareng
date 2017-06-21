@@ -55,9 +55,10 @@ end
 
 group :test do
   gem "database_cleaner"
-  gem "rspec-rails"
-  gem "simplecov"
   gem "rspec-json_expectations"
+  gem "rspec-rails"
+  gem "shoulda-matchers", git: "https://github.com/thoughtbot/shoulda-matchers.git", branch: "rails-5"
+  gem "simplecov"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

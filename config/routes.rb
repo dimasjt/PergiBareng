@@ -11,7 +11,9 @@ Rails.application.routes.draw do
     end
 
     namespace :v1 do
-      resources :places, except: [:new, :edit]
+      resources :places, except: [:new, :edit] do
+        resources :schedules, only: :create
+      end
     end
   end
 

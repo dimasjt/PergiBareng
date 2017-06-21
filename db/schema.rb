@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170618133956) do
+ActiveRecord::Schema.define(version: 20170621035818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,22 @@ ActiveRecord::Schema.define(version: 20170618133956) do
     t.string "slug"
     t.index ["slug"], name: "index_places_on_slug", unique: true
     t.index ["user_id"], name: "index_places_on_user_id"
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "place_id"
+    t.text "meetup"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "max_users", default: 0
+    t.integer "days", default: 0
+    t.integer "price", default: 0
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["place_id"], name: "index_schedules_on_place_id"
+    t.index ["user_id"], name: "index_schedules_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

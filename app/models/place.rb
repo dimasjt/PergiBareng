@@ -29,6 +29,7 @@ class Place < ApplicationRecord
   include HasApi
 
   belongs_to :user
+  has_many :schedules
 
   validates :name, :description, :address, presence: true
 
