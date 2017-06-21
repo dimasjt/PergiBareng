@@ -63,7 +63,7 @@ class User < ApplicationRecord
   end
 
   def self.self_api_attributes
-    %w(id email created_at confirmed_at)
+    %w(id email name birthdate avatar gender city created_at confirmed_at)
   end
 
   def self.secret_token
