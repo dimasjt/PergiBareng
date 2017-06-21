@@ -39,6 +39,10 @@ class Schedule < ApplicationRecord
     %w(id meetup days price status max_users start_date end_date)
   end
 
+  def self.index_api_attributes
+    show_api_attributes
+  end
+
   private
 
   def set_days

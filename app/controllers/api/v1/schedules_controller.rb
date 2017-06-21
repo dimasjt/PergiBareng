@@ -1,6 +1,11 @@
-class Api::V1::SchedulesController < Api::V1::V1Controller
-  before_action :authenticate_user_from_token!
+class Api::V1::SchedulesController < Api::V1::ResourcesController
+  before_action :authenticate_user_from_token!, only: :create
   before_action :set_place
+
+  def index
+    @resources = @place.schedules
+    super
+  end
 
   def create
     @schedule = @place.schedules.new(create_schedule_params.merge(user: current_user))

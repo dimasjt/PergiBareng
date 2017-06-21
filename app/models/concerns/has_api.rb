@@ -50,6 +50,8 @@ module HasApi
     def api_value(value, nested_namespace = nil)
       if value.instance_of? ImageUploader
         image_nested(value)
+      elsif value.is_a?(DateTime) || value.is_a?(Time)
+        value.utc.to_i
       elsif value.respond_to?(:to_api_data) && !value.is_a?(Array)
         value.to_api_data(nested_namespace || :nested)
       else
