@@ -10,7 +10,6 @@ describe Api::Users::RegistrationsController, type: :controller do
       expect(response.status).to eq 201
       expect(User.count).to eq 1
       expect(response.body).to include_json(
-        errors: [message],
         flash: message
       )
     end

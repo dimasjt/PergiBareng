@@ -18,8 +18,12 @@ module ApiHelpers
   end
 
   def render_json(object, **options)
-    if options[:flash] && options[:status] >= 400
-      object.merge!(flash: options[:flash], errors: [options[:flash]])
+    if options[:flash]
+      object[:flash] = options[:flash]
+
+      if options[:status] >= 400
+        object[:errors] = [options[:flash]]
+      end
     end
 
     render json: object, status: options[:status] || 200
