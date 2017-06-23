@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Paper, RaisedButton as Button } from "material-ui";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Field, reduxForm, formValueSelector } from 'redux-form';
+import { Field, reduxForm, formValueSelector } from "redux-form";
 import { TextField } from "redux-form-material-ui";
 
 import * as actions from "../../actions/auth";

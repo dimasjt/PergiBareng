@@ -4,6 +4,10 @@ import { bindActionCreators } from "redux";
 import { GridList, GridTile } from "material-ui/GridList";
 import { Paper } from "material-ui";
 
+import EditProfile from "../forms/EditProfile";
+
+import * as actions from "../../actions/user";
+
 const styles = {
   imgLeft: {
     width: "100%",
@@ -28,6 +32,18 @@ const LeftProfile = ({ user }) => {
   );
 };
 
+const RightProfile = (props) => {
+  return (
+    <GridTile cols={1}>
+      <Paper zDepth={1}>
+        <div className="profile-right">
+          <EditProfile onSubmit={props.updateUser} />
+        </div>
+      </Paper>
+    </GridTile>
+  );
+};
+
 class Profile extends Component {
   render() {
     return (
@@ -37,11 +53,7 @@ class Profile extends Component {
           cols={3}
         >
           <LeftProfile {...this.props} />
-
-          <GridTile cols={2}>
-            <Paper zDepth={1}>
-            </Paper>
-          </GridTile>
+          <RightProfile {...this.props} />
         </GridList>
       </div>
     );
@@ -50,4 +62,5 @@ class Profile extends Component {
 
 export default connect(
   state => state,
+  dispatch => bindActionCreators(actions, dispatch),
 )(Profile);
