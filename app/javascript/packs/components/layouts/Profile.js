@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { GridList, GridTile } from "material-ui/GridList";
 import { Paper } from "material-ui";
 
 import EditProfile from "../forms/EditProfile";
@@ -9,17 +8,29 @@ import EditProfile from "../forms/EditProfile";
 import * as actions from "../../actions/user";
 
 const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  left: {
+    flex: 1,
+  },
+  right: {
+    flex: 4,
+    paddingLeft: "20px",
+  },
   imgLeft: {
     width: "100%",
   },
   leftPanel: {
-    padding: "10px",
+    padding: "30px",
   },
 };
 
 const LeftProfile = ({ user }) => {
   return (
-    <GridTile cols={1}>
+    <div style={styles.left}>
       <Paper zDepth={1}>
         <div style={styles.leftPanel} className="profile-left">
           <div className="profile-left-header">
@@ -28,33 +39,28 @@ const LeftProfile = ({ user }) => {
           </div>
         </div>
       </Paper>
-    </GridTile>
+    </div>
   );
 };
 
 const RightProfile = (props) => {
   return (
-    <GridTile cols={1}>
+    <div style={styles.right}>
       <Paper zDepth={1}>
         <div className="profile-right">
           <EditProfile onSubmit={props.updateUser} />
         </div>
       </Paper>
-    </GridTile>
+    </div>
   );
 };
 
 class Profile extends Component {
   render() {
     return (
-      <div>
-        <GridList
-          cellHeight="auto"
-          cols={3}
-        >
-          <LeftProfile {...this.props} />
-          <RightProfile {...this.props} />
-        </GridList>
+      <div style={styles.container}>
+        <LeftProfile {...this.props} />
+        <RightProfile {...this.props} />
       </div>
     );
   }
