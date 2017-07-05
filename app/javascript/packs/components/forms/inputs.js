@@ -10,13 +10,19 @@ const InputField = (props) => {
       component={TextField}
       hintText={props.hint}
       fullWidth
+      type={props.type}
     />
   );
+};
+
+InputField.defaultProps = {
+  type: "text",
 };
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
   hint: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
 };
 
 export {

@@ -1,29 +1,25 @@
 import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { TextField } from "redux-form-material-ui";
+import { reduxForm } from "redux-form";
 import { RaisedButton as Button } from "material-ui";
+import PropTypes from "prop-types";
+
+import { InputField } from "./inputs";
 
 const Form = (props) => {
   const { handleSubmit, header } = props;
   return (
     <form name="register" onSubmit={handleSubmit}>
       <h1>{header}</h1>
-      <Field
-        name="email"
-        component={TextField}
-        hintText="Email"
-        fullWidth
-      />
-      <Field
-        name="password"
-        component={TextField}
-        hintText="Password"
-        type="password"
-        fullWidth
-      />
+      <InputField name="email" hint="Email" />
+      <InputField name="password" hint="Password" type="password" />
       <Button label="Login" primary type="submit" />
     </form>
   );
+};
+
+Form.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+  header: PropTypes.string.isRequired,
 };
 
 export const RegisterForm = reduxForm({
