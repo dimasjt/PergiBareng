@@ -1,5 +1,6 @@
 class Api::ApiController < ActionController::Base
   protect_from_forgery with: :null_session
+  before_action :authenticate_user!
 
   respond_to :json
 
@@ -12,7 +13,7 @@ class Api::ApiController < ActionController::Base
     }, status: 404
   end
 
-  def authenticate_user_from_token!
+  def authenticate_user!(**args)
     auth_token = request.headers["Authorization"].try(:sub, /Bearer /, "")
 
     if auth_token && user = User.authenticate(auth_token)

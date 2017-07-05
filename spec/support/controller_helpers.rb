@@ -13,7 +13,7 @@ module ControllerHelpers
     JSON.parse(obj).deep_symbolize_keys
   end
 
-  %w(get post patch put delete).each do |m|
+  %w[get post patch put delete].each do |m|
     define_method("auth_#{m}") do |user, action, **opts|
       authorize(user)
       send(m, action, opts)

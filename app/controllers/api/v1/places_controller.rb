@@ -1,6 +1,6 @@
 class Api::V1::PlacesController < Api::V1::ResourcesController
-  # POST /api/v1/places
-  # POST /api/v1/places.json
+  skip_before_action :authenticate_user!, only: %w[index show]
+
   def create
     @place = Place.new(place_params)
 
@@ -15,8 +15,6 @@ class Api::V1::PlacesController < Api::V1::ResourcesController
     end
   end
 
-  # PATCH/PUT /api/v1/places/1
-  # PATCH/PUT /api/v1/places/1.json
   def update
     respond_to do |format|
       if @place.update(place_params)
@@ -29,8 +27,6 @@ class Api::V1::PlacesController < Api::V1::ResourcesController
     end
   end
 
-  # DELETE /api/v1/places/1
-  # DELETE /api/v1/places/1.json
   def destroy
     @place.destroy
     respond_to do |format|
@@ -40,12 +36,10 @@ class Api::V1::PlacesController < Api::V1::ResourcesController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_place
       @place = Place.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def place_params
       params.fetch(:place, {}).permit(:name, :description, :image, :address, :latitude, :longitude)
     end

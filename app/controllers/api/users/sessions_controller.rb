@@ -1,4 +1,6 @@
 class Api::Users::SessionsController < Devise::SessionsController
+  skip_before_action :authenticate_user!, only: :create
+
   def create
     self.resource = User.find_for_database_authentication(email: sign_in_params[:email])
 

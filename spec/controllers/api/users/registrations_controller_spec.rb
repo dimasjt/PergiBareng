@@ -39,10 +39,9 @@ describe Api::Users::RegistrationsController, type: :controller do
       expect(user.email).to eq("aa@gmail.com")
       expect(user.name).to eq("Bad Guy")
       expect(user.city).to eq("Bad City")
-      authorize(user)
-      put :update, params: { user: @user_attrs }, format: :json
-      expect(subject.status).to eq(200)
-      expect(subject.body).to include_json(
+      auth_put user, :update, params: { user: @user_attrs }, format: :json
+      expect(response.status).to eq(200)
+      expect(response.body).to include_json(
         user: @user_attrs
       )
     end
@@ -51,13 +50,13 @@ describe Api::Users::RegistrationsController, type: :controller do
       authorize(user)
       @user_attrs = { email: "" }
       put :update, params: { user: @user_attrs }, format: :json
-      expect(subject.status).to eq(422)
+      expect(response.status).to eq(422)
     end
 
     it "should authorize" do
       @user_attrs = {}
       put :update, params: { user: @user_attrs }, format: :json
-      expect(subject.status).to eq(401)
+      expect(response.status).to eq(401)
     end
   end
 end
