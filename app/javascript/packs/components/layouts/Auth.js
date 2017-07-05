@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import { Paper, RaisedButton as Button } from "material-ui";
+import { Paper } from "material-ui";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Field, reduxForm, formValueSelector } from "redux-form";
-import { TextField } from "redux-form-material-ui";
+import { reduxForm } from "redux-form";
 
 import * as actions from "../../actions/auth";
+
+import { RegisterForm, LoginForm } from "../forms/AuthForm";
 
 const styles = {
   container: {
@@ -21,37 +22,6 @@ const styles = {
     textAlign: "left",
   },
 };
-
-const Form = (props) => {
-  const { handleSubmit, submitting, header } = props;
-  return (
-    <form name="register" onSubmit={handleSubmit}>
-      <h1>{header}</h1>
-      <Field
-        name="email"
-        component={TextField}
-        hintText="Email"
-        fullWidth
-      />
-      <Field
-        name="password"
-        component={TextField}
-        hintText="Password"
-        type="password"
-        fullWidth
-      />
-      <Button label="Login" primary type="submit" />
-    </form>
-  )
-}
-
-const RegisterForm = reduxForm({
-  form: 'register',
-})(Form);
-
-const LoginForm = reduxForm({
-  form: 'login',
-})(Form);
 
 class Auth extends Component {
   registerUser = (values) => {
