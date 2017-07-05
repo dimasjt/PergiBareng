@@ -3,6 +3,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { GridList, GridTile } from "material-ui/GridList";
 import { Tabs, Tab } from "material-ui/Tabs";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHeaderColumn,
+  TableRowColumn,
+} from "material-ui/Table";
 
 import { place as placeReducer } from "../../reducers/places";
 import * as actions from "../../actions/places";
@@ -28,7 +36,44 @@ const Overview = (props) => {
 
 const Schedule = (props) => {
   return (
-    <div>Schedule</div>
+    <div>
+      <Table multiSelectable={false}>
+        <TableHeader displaySelectAll={false}>
+          <TableRow>
+            <TableHeaderColumn>Date</TableHeaderColumn>
+            <TableHeaderColumn>Limit</TableHeaderColumn>
+            <TableHeaderColumn>Remain</TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false} stripedRows>
+          <TableRow>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+          </TableRow>
+          <TableRow>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+            <TableRowColumn>1</TableRowColumn>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </div>
   );
 };
 
@@ -49,6 +94,9 @@ class PlacePage extends React.Component {
     const { slug } = this.props.match.params;
     this.props.actions.getPlace(slug);
   }
+  fetchSchedules = () => {
+
+  }
   render() {
     const { place } = this.props;
     if (!place) {
@@ -63,10 +111,18 @@ class PlacePage extends React.Component {
         >
           <GridTile cols={2}>
             <Tabs>
-              <Tab label="Overview"><Overview {...this.props} /></Tab>
-              <Tab label="Schedule"><Schedule {...this.props} /></Tab>
-              <Tab label="Reviews"><Review {...this.props} /></Tab>
-              <Tab label="Map"><Map {...this.props} /></Tab>
+              <Tab label="Overview">
+                <Overview {...this.props} />
+              </Tab>
+              <Tab label="Schedule" onActive={this.fetchSchedules}>
+                <Schedule {...this.props} />
+              </Tab>
+              <Tab label="Reviews">
+                <Review {...this.props} />
+              </Tab>
+              <Tab label="Map">
+                <Map {...this.props} />
+              </Tab>
             </Tabs>
           </GridTile>
 
