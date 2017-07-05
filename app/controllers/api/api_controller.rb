@@ -1,6 +1,7 @@
 class Api::ApiController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :authenticate_user!
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   respond_to :json
 
@@ -20,6 +21,14 @@ class Api::ApiController < ActionController::Base
       sign_in user, store: false
     else
       render_json({}, status: 401, flash: "Unauthorized")
+    end
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:account_update) do |p|
+      p.permit(:email, :name, :city, :birthdate, :current_password)
     end
   end
 end

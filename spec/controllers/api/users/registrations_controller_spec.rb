@@ -30,32 +30,33 @@ describe Api::Users::RegistrationsController, type: :controller do
   describe "#update" do
     let(:user) { create(:user, email: "aa@gmail.com", name: "Bad Guy", city: "Bad City") }
 
+    subject { auth_put user, :update, params: { user: @user_attrs }, format: :json }
+
     it "should update user" do
       @user_attrs = {
-        email: "updated@mail.com",
+        # email: "updated@mail.com",
         name: "Cool Guy",
-        city: "Awesome City"
+        city: "Awesome City",
+        birthdate: "01/01/1990",
+        current_password: user.password
       }
-      expect(user.email).to eq("aa@gmail.com")
-      expect(user.name).to eq("Bad Guy")
-      expect(user.city).to eq("Bad City")
-      auth_put user, :update, params: { user: @user_attrs }, format: :json
-      expect(response.status).to eq(200)
-      expect(response.body).to include_json(
-        user: @user_attrs
+      expect(subject.status).to eq(200)
+      expect(subject.body).to include_json(
+        auth_token: user.reload.auth_token
       )
+      # expect(user.email).to eq("updated@mail.com")
+      expect(user.name).to eq("Cool Guy")
+      expect(user.city).to eq("Awesome City")
+      expect(user.birthdate).to eq("01/01/1990")
     end
 
     it "should return error" do
-      authorize(user)
       @user_attrs = { email: "" }
-      put :update, params: { user: @user_attrs }, format: :json
-      expect(response.status).to eq(422)
+      expect(subject.status).to eq(422)
     end
 
     it "should authorize" do
-      @user_attrs = {}
-      put :update, params: { user: @user_attrs }, format: :json
+      put :update, params: { user: {} }, format: :json
       expect(response.status).to eq(401)
     end
   end
