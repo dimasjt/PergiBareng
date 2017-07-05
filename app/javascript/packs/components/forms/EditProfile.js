@@ -17,13 +17,15 @@ const styles = {
 };
 
 const Form = (props) => {
+  const { handleSubmit } = props;
   return (
-    <form name="editProfile" onSubmit={props.onSubmit} style={styles.form}>
+    <form name="editProfile" onSubmit={handleSubmit} style={styles.form}>
       <h1 style={styles.heading}>Update Profile</h1>
       <InputField name="email" hint="Email" />
       <InputField name="name" hint="Full Name" />
       <InputField name="city" hint="City" />
       <InputField name="birthdate" hint="Birthdate" />
+      <InputField name="current_password" hint="Current Password" type="password" />
 
       <Button label="Update" primary type="submit" />
     </form>
@@ -31,15 +33,18 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
+  // onSubmit: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
-const EditProfile = reduxForm({
+const FormRedux = reduxForm({
   form: "editProfile",
 })(Form);
 
-export default connect(
+const EditProfile = connect(
   state => ({
     initialValues: state.user,
   }),
-)(EditProfile);
+)(FormRedux);
+
+export default EditProfile;

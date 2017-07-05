@@ -1,11 +1,10 @@
-import { decode } from "json-web-token";
-
 import {
   USER_REGISTERED,
   LOGGED_IN,
   LOGGED_OUT,
 } from "../constants";
-import { AxioDevise, Axio } from "../Axio";
+import { setAuthToken, removeAuthToken } from "../utils/auth";
+import { AxioDevise } from "../Axio";
 
 export function registerUser(user) {
   return async (dispatch) => {
@@ -25,13 +24,7 @@ export function loginUser(user) {
   return async (dispatch) => {
     try {
       const result = await AxioDevise.post("/login", { user });
-      const token = result.data.auth_token;
-      const userAttribute = decode(process.env.JWT_SECRET, token).value;
-
-      localStorage.setItem("token", token);
-
-      AxioDevise.defaults.headers.common.Authorization = `Bearer ${token}`;
-      Axio.defaults.headers.common.Authorization = `Bearer ${token}`;
+      const userAttribute = setAuthToken(result.data.auth_token);
 
       dispatch({
         type: LOGGED_IN,
@@ -40,15 +33,15 @@ export function loginUser(user) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function logout() {
   return (dispatch) => {
-    localStorage.removeItem("token");
+    removeAuthToken();
 
     dispatch({
       type: LOGGED_OUT,
     });
-  }
+  };
 }

@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Paper } from "material-ui";
 
-import EditProfile from "../forms/EditProfile";
-
 import * as actions from "../../actions/user";
+
+import EditProfile from "../forms/EditProfile";
 
 const styles = {
   container: {
@@ -28,39 +28,33 @@ const styles = {
   },
 };
 
-const LeftProfile = ({ user }) => {
-  return (
-    <div style={styles.left}>
-      <Paper zDepth={1}>
-        <div style={styles.leftPanel} className="profile-left">
-          <div className="profile-left-header">
-            <img src={user.avatar.medium} alt={user.name} style={styles.imgLeft} />
-            <h3>{user.name}</h3>
-          </div>
-        </div>
-      </Paper>
-    </div>
-  );
-};
-
-const RightProfile = (props) => {
-  return (
-    <div style={styles.right}>
-      <Paper zDepth={1}>
-        <div className="profile-right">
-          <EditProfile onSubmit={props.updateUser} />
-        </div>
-      </Paper>
-    </div>
-  );
-};
-
 class Profile extends Component {
+  handleUpdateUser = (values) => {
+    this.props.actions.updateUser(values);
+  }
   render() {
+    const { user } = this.props;
+
     return (
       <div style={styles.container}>
-        <LeftProfile {...this.props} />
-        <RightProfile {...this.props} />
+        <div style={styles.left}>
+          <Paper zDepth={1}>
+            <div style={styles.leftPanel} className="profile-left">
+              <div className="profile-left-header">
+                <img src={user.avatar.medium} alt={user.name} style={styles.imgLeft} />
+                <h3>{user.name}</h3>
+              </div>
+            </div>
+          </Paper>
+        </div>
+
+        <div style={styles.right}>
+          <Paper zDepth={1}>
+            <div className="profile-right">
+              <EditProfile onSubmit={this.handleUpdateUser} />
+            </div>
+          </Paper>
+        </div>
       </div>
     );
   }
@@ -68,5 +62,5 @@ class Profile extends Component {
 
 export default connect(
   state => state,
-  dispatch => bindActionCreators(actions, dispatch),
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
 )(Profile);
