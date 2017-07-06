@@ -1,9 +1,9 @@
 import {
-  FETCHED_PLACES,
   FETCHED_RECOMMENDED_PLACES,
   FETCHED_PLACE,
   FETCHED_SCHEDULES,
-  CREATED_PLACE,
+  CREATE_ERROR,
+  SHOW_FLASH,
 } from "../constants";
 import { Axio } from "../Axio";
 
@@ -48,15 +48,23 @@ export function getSchedules(slug) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 }
 
 export function postPlace(place) {
   return async (dispatch) => {
     try {
       const result = await Axio.post("places", { place });
+
+      dispatch({
+        type: SHOW_FLASH,
+        flash: result.data.flash,
+      });
     } catch (error) {
-      console.log(error);
+      dispatch({
+        type: CREATE_ERROR,
+        flash: error.message,
+      });
     }
-  }
+  };
 }

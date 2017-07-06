@@ -9,3 +9,9 @@ export const FETCHED_SCHEDULES = "FETCHED_SCHEDULES";
 export const CREATED_PLACE = "CREATED_PLACE";
 
 export const USER_UPDATED = "USER_UPDATED";
+
+export const SHOW_FLASH = "SHOW_FLASH";
+export const SHOW_ERROR = "SHOW_ERROR";
+export const CREATE_ERROR = "CREATE_ERROR";
+export const UPDATE_ERROR = "UPDATE_ERROR";
+export const HIDE_FLASH = "HIDE_FLASH";

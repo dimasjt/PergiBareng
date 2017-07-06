@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import Home from "./components/layouts/Home";
 import Auth from "./components/layouts/Auth";
 import Header from "./components/layouts/Header";
+import Snackbar from "./components/layouts/Snackbar";
 import Profile from "./components/layouts/Profile";
 import PlacePage from "./components/layouts/PlacePage";
 import NewPlace from "./components/layouts/NewPlace";
@@ -35,6 +36,8 @@ const Routes = ({ history, ConnectedRouter }) => {
             <Route path="/profile" component={Profile} />
           </Switch>
         </div>
+
+        <Snackbar />
       </div>
     </ConnectedRouter>
   );
