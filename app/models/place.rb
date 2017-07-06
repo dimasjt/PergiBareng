@@ -22,7 +22,7 @@
 
 class Place < ApplicationRecord
   extend FriendlyId
-  friendly_id :slug_candidates, use: [:slugged, :finders]
+  friendly_id :slug_candidates, use: %i[slugged finders]
 
   mount_uploader :image, ImageUploader
 
@@ -34,7 +34,11 @@ class Place < ApplicationRecord
   validates :name, :description, :address, presence: true
 
   def self.index_api_attributes
-    %w(id name description image slug)
+    %w[id name description image slug]
+  end
+
+  def self.show_api_attributes
+    index_api_attributes + %w[latitude longitude address created_at]
   end
 
   private

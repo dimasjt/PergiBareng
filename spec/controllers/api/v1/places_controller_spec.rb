@@ -35,4 +35,28 @@ RSpec.describe Api::V1::PlacesController, type: :controller do
     end
   end
 
+  describe "POST #create" do
+    let(:user) { create(:user) }
+
+    subject { post :create, params: { place: @place_attrs } }
+
+    it "unauthorized" do
+      expect(subject.status).to eq(401)
+    end
+
+    context "authorized" do
+      before(:each) { authorize(user) }
+
+      it "create place" do
+        @place_attrs = attributes_for(:place)
+        expect(subject.status).to eq(201)
+        expect(Place.count).to eq(1)
+      end
+
+      it "return errors" do
+        @place_attrs = { place: {} }
+        expect(subject.status).to eq(422)
+      end
+    end
+  end
 end
