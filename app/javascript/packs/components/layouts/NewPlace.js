@@ -19,11 +19,14 @@ const styles = {
 };
 
 class NewPlace extends React.Component {
+  createPlace = (values) => {
+    this.props.actions.postPlace(values);
+  }
   render() {
     return (
       <div style={styles.container}>
         <Paper style={styles.form}>
-          <NewPlaceForm />
+          <NewPlaceForm onSubmit={this.createPlace} />
         </Paper>
       </div>
     );

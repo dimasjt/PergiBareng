@@ -3,6 +3,7 @@ import {
   FETCHED_RECOMMENDED_PLACES,
   FETCHED_PLACE,
   FETCHED_SCHEDULES,
+  CREATED_PLACE,
 } from "../constants";
 import { Axio } from "../Axio";
 
@@ -44,6 +45,16 @@ export function getSchedules(slug) {
         type: FETCHED_SCHEDULES,
         schedules: result.data.schedules,
       });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export function postPlace(place) {
+  return async (dispatch) => {
+    try {
+      const result = await Axio.post("places", { place });
     } catch (error) {
       console.log(error);
     }
