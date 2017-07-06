@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { GridList, GridTile } from "material-ui/GridList";
+import { GridList, div } from "material-ui/GridList";
 import { Tabs, Tab } from "material-ui/Tabs";
 import {
   Table,
@@ -14,6 +14,19 @@ import {
 
 import { place as placeReducer } from "../../reducers/places";
 import * as actions from "../../actions/places";
+
+const styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  content: {
+    flex: 6,
+  },
+  side: {
+    flex: 2,
+  },
+};
 
 const PlaceHeader = (props) => {
   const place = props.place;
@@ -35,6 +48,17 @@ const Overview = (props) => {
 };
 
 const Schedule = (props) => {
+  const rows = props.place.schedules.map((schedule) => {
+    return (
+      <TableRow key={schedule.id}>
+        <TableRowColumn>{schedule.start_date}</TableRowColumn>
+        <TableRowColumn>{schedule.max_users}</TableRowColumn>
+        <TableRowColumn>{schedule.max_users}</TableRowColumn>
+        <TableRowColumn>{schedule.price}</TableRowColumn>
+        <TableRowColumn><a>Join</a></TableRowColumn>
+      </TableRow>
+    )
+  });
   return (
     <div>
       <Table multiSelectable={false}>
@@ -43,34 +67,12 @@ const Schedule = (props) => {
             <TableHeaderColumn>Date</TableHeaderColumn>
             <TableHeaderColumn>Limit</TableHeaderColumn>
             <TableHeaderColumn>Remain</TableHeaderColumn>
+            <TableHeaderColumn>Price</TableHeaderColumn>
+            <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false} stripedRows>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-          </TableRow>
-          <TableRow>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-            <TableRowColumn>1</TableRowColumn>
-          </TableRow>
+          {rows}
         </TableBody>
       </Table>
     </div>
@@ -89,47 +91,55 @@ const Map = (props) => {
   );
 };
 
+const Content = (props) => {
+  return (
+    <div style={styles.content}>
+      <Tabs>
+        <Tab label="Overview">
+          <Overview {...props} />
+        </Tab>
+        <Tab label="Schedule" onActive={props.fetchSchedules}>
+          <Schedule {...props} />
+        </Tab>
+        <Tab label="Reviews">
+          <Review {...props} />
+        </Tab>
+        <Tab label="Map">
+          <Map {...props} />
+        </Tab>
+      </Tabs>
+    </div>
+  );
+}
+
 class PlacePage extends React.Component {
   componentWillMount() {
     const { slug } = this.props.match.params;
     this.props.actions.getPlace(slug);
   }
   fetchSchedules = () => {
-
+    const { slug } = this.props.match.params;
+    this.props.actions.getSchedules(slug);
   }
   render() {
-    const { place } = this.props;
+    const place = this.props.places.active;
     if (!place) {
       return null;
     }
     return (
       <div>
         <PlaceHeader place={place} />
-        <GridList
-          cellHeight="auto"
-          cols={3}
-        >
-          <GridTile cols={2}>
-            <Tabs>
-              <Tab label="Overview">
-                <Overview {...this.props} />
-              </Tab>
-              <Tab label="Schedule" onActive={this.fetchSchedules}>
-                <Schedule {...this.props} />
-              </Tab>
-              <Tab label="Reviews">
-                <Review {...this.props} />
-              </Tab>
-              <Tab label="Map">
-                <Map {...this.props} />
-              </Tab>
-            </Tabs>
-          </GridTile>
+        <div style={styles.container}>
+          <Content
+            {...this.props}
+            place={place}
+            fetchSchedules={this.fetchSchedules}
+          />
 
-          <GridTile cols={1}>
+          <div style={styles.side}>
             Side Content
-          </GridTile>
-        </GridList>
+          </div>
+        </div>
       </div>
     );
   }

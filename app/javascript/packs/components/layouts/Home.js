@@ -8,20 +8,12 @@ import CardPlace from "../places/CardPlace";
 
 import * as actions from "../../actions/places";
 
-const styles = {
-  card: {
-    width: "32%",
-    display: "inline-block",
-    margin: "0.3%",
-  },
-};
-
 class Home extends Component {
   componentWillMount() {
     this.props.actions.getRecommendedPlaces();
   }
   render() {
-    const cardPlaces = this.props.places.map((place) => {
+    const cardPlaces = this.props.places.list.map((place) => {
       return (
         <GridTile key={place.id}>
           <CardPlace {...this.props} place={place} />

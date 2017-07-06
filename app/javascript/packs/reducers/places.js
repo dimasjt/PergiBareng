@@ -2,24 +2,39 @@ import {
   FETCHED_PLACES,
   FETCHED_RECOMMENDED_PLACES,
   FETCHED_PLACE,
+  FETCHED_SCHEDULES,
 } from "../constants";
 
-function places(state = [], action) {
+const initialState = {
+  list: [],
+  active: null,
+};
+
+export default function (state = initialState, action) {
   switch (action.type) {
     case FETCHED_RECOMMENDED_PLACES:
-      return action.places;
-    default:
-      return state;
-  }
-}
-
-export function place(state = null, action) {
-  switch (action.type) {
+      return {
+        ...state,
+        list: action.places,
+      };
     case FETCHED_PLACE:
-      return action.place;
+      return {
+        ...state,
+        list: [],
+        active: {
+          ...action.place,
+          schedules: [],
+        },
+      };
+    case FETCHED_SCHEDULES:
+      return {
+        ...state,
+        active: {
+          ...state.active,
+          schedules: action.schedules,
+        },
+      };
     default:
       return state;
   }
 }
-
-export default places;
