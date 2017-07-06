@@ -1,6 +1,7 @@
 import React from "react";
 import {
   Route,
+  Switch,
 } from "react-router-dom";
 import PropTypes from "prop-types";
 
@@ -9,6 +10,7 @@ import Auth from "./components/layouts/Auth";
 import Header from "./components/layouts/Header";
 import Profile from "./components/layouts/Profile";
 import PlacePage from "./components/layouts/PlacePage";
+import NewPlace from "./components/layouts/NewPlace";
 
 const styles = {
   container: {
@@ -25,10 +27,13 @@ const Routes = ({ history, ConnectedRouter }) => {
         <Header />
 
         <div style={styles.container}>
-          <Route exact path="/" component={Home} />
-          <Route path="/places/:slug" component={PlacePage} />
-          <Route path="/auth" component={Auth} />
-          <Route path="/profile" component={Profile} />
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/places/new" component={NewPlace} />
+            <Route path="/places/:slug" component={PlacePage} />
+            <Route path="/auth" component={Auth} />
+            <Route path="/profile" component={Profile} />
+          </Switch>
         </div>
       </div>
     </ConnectedRouter>

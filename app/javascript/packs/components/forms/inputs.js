@@ -15,8 +15,31 @@ const InputField = (props) => {
   );
 };
 
+const TextArea = (props) => {
+  return (
+    <Field
+      name={props.name}
+      component={TextField}
+      hintText={props.hint}
+      fullWidth
+      multiLine
+      rows={props.rows}
+    />
+  );
+};
+
 InputField.defaultProps = {
   type: "text",
+};
+
+TextArea.defaultProps = {
+  rows: 1,
+};
+
+TextArea.propTypes = {
+  name: PropTypes.string.isRequired,
+  hint: PropTypes.string.isRequired,
+  rows: PropTypes.number,
 };
 
 InputField.propTypes = {
@@ -27,4 +50,5 @@ InputField.propTypes = {
 
 export {
   InputField,
+  TextArea,
 };
