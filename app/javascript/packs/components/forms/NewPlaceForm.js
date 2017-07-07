@@ -1,5 +1,5 @@
 import React from "react";
-import { reduxForm } from "redux-form";
+import { reduxForm, propTypes } from "redux-form";
 import { RaisedButton as Button } from "material-ui";
 
 import { InputField, TextArea } from "./inputs";
@@ -18,6 +18,10 @@ const Form = (props) => {
       <Button label="Request" primary type="submit" />
     </form>
   );
+};
+
+Form.propTypes = {
+  ...propTypes,
 };
 
 const NewPlaceForm = reduxForm({

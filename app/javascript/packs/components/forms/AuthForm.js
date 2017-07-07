@@ -1,7 +1,6 @@
 import React from "react";
-import { reduxForm } from "redux-form";
+import { reduxForm, propTypes } from "redux-form";
 import { RaisedButton as Button } from "material-ui";
-import PropTypes from "prop-types";
 
 import { InputField } from "./inputs";
 
@@ -18,8 +17,8 @@ const Form = (props) => {
 };
 
 Form.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  header: PropTypes.string.isRequired,
+  ...propTypes,
+  header: propTypes.string.isRequired,
 };
 
 export const RegisterForm = reduxForm({
