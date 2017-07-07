@@ -3,7 +3,7 @@ import { reduxForm, propTypes } from "redux-form";
 import { RaisedButton as Button } from "material-ui";
 import { connect } from "react-redux";
 
-import { InputField } from "./inputs";
+import { InputField, FileField } from "./inputs";
 
 const styles = {
   heading: {
@@ -24,6 +24,7 @@ const Form = (props) => {
       <InputField name="name" hint="Full Name" />
       <InputField name="city" hint="City" />
       <InputField name="birthdate" hint="Birthdate" />
+      <FileField name="avatar" />
       <InputField name="current_password" hint="Current Password" type="password" />
 
       <Button label="Update" primary type="submit" />

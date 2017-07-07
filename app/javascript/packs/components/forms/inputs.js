@@ -16,6 +16,18 @@ const InputField = (props) => {
   );
 };
 
+InputField.defaultProps = {
+  type: "text",
+  validate: [],
+};
+
+InputField.propTypes = {
+  name: PropTypes.string.isRequired,
+  hint: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  validate: PropTypes.any,
+};
+
 const TextArea = (props) => {
   return (
     <Field
@@ -30,11 +42,6 @@ const TextArea = (props) => {
   );
 };
 
-InputField.defaultProps = {
-  type: "text",
-  validate: [],
-};
-
 TextArea.defaultProps = {
   rows: 1,
   validate: [],
@@ -47,14 +54,49 @@ TextArea.propTypes = {
   validate: PropTypes.any,
 };
 
-InputField.propTypes = {
+const FileInput = ({
+  input: {
+    value: omitValue,
+    onChange,
+    onBlur,
+    ...inputProps
+  },
+  meta: omitMeta,
+  ...props
+}) => {
+  const adaptFileEventToValue = delegate => e => delegate(e.target.files[0]);
+
+  return (
+    <input
+      onChange={adaptFileEventToValue(onChange)}
+      onBlur={adaptFileEventToValue(onBlur)}
+      type="file"
+      {...inputProps}
+      {...props}
+    />
+  );
+};
+
+FileInput.propTypes = {
+  meta: PropTypes.any.isRequired,
+  input: PropTypes.any.isRequired,
+};
+
+const FileField = (props) => {
+  return (
+    <Field
+      component={FileInput}
+      name={props.name}
+    />
+  );
+};
+
+FileField.propTypes = {
   name: PropTypes.string.isRequired,
-  hint: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  validate: PropTypes.any,
 };
 
 export {
   InputField,
   TextArea,
+  FileField,
 };
