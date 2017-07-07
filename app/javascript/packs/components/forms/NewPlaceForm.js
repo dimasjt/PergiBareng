@@ -18,7 +18,7 @@ const Form = (props) => {
       <Button label="Request" primary type="submit" />
     </form>
   );
-}
+};
 
 const NewPlaceForm = reduxForm({
   form: "newPlace",

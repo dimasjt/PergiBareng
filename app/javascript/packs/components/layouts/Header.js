@@ -1,6 +1,6 @@
 import React from "react";
 import { AppBar, Drawer, MenuItem } from "material-ui";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
@@ -20,7 +20,7 @@ const HeaderItem = ({ path, openDrawer, label }) => {
   );
 }
 
-const UnLogged = ({openDrawer}) => {
+const UnLogged = ({ openDrawer }) => {
   return (
     <div>
       <HeaderItem path="/auth" openDrawer={openDrawer} label="Login / Register" />
@@ -28,7 +28,7 @@ const UnLogged = ({openDrawer}) => {
   );
 };
 
-const LoggedIn = ({openDrawer, actions}) => {
+const LoggedIn = ({ openDrawer, actions }) => {
   return (
     <div>
       <HeaderItem path="/places" openDrawer={openDrawer} label="Places" />
@@ -57,15 +57,17 @@ class Header extends React.Component {
         <AppBar
           title="PergiBareng"
           onLeftIconButtonTouchTap={this.openDrawer}
-        ></AppBar>
+        />
         <Drawer
           open={this.state.drawer}
           docked={false}
-          onRequestChange={(drawer) => this.setState({drawer})}
+          onRequestChange={drawer => this.setState({ drawer })}
         >
           <AppBar title="PergiBareng" iconElementLeft={<div />} />
           <HeaderItem path="/" openDrawer={this.openDrawer} label="Home" />
-          { this.props.user ? <LoggedIn {...this.props} openDrawer={this.openDrawer} /> : <UnLogged {...this.props} openDrawer={this.openDrawer} /> }
+          { this.props.user ?
+            <LoggedIn {...this.props} openDrawer={this.openDrawer} /> :
+            <UnLogged {...this.props} openDrawer={this.openDrawer} /> }
         </Drawer>
       </div>
     );
@@ -74,5 +76,5 @@ class Header extends React.Component {
 
 export default connect(
   state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
 )(Header);

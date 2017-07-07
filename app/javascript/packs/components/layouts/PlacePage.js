@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { GridList, div } from "material-ui/GridList";
 import { Tabs, Tab } from "material-ui/Tabs";
 import {
   Table,
@@ -12,13 +11,12 @@ import {
   TableRowColumn,
 } from "material-ui/Table";
 
-import { place as placeReducer } from "../../reducers/places";
 import * as actions from "../../actions/places";
 
 const styles = {
   container: {
-    display: 'flex',
-    flexDirection: 'row',
+    display: "flex",
+    flexDirection: "row",
   },
   content: {
     flex: 6,
@@ -29,7 +27,7 @@ const styles = {
 };
 
 const PlaceHeader = (props) => {
-  const place = props.place;
+  const { place } = props;
   return (
     <div>
       <img src={place.image.large} alt={place.name} />
@@ -57,7 +55,7 @@ const Schedule = (props) => {
         <TableRowColumn>{schedule.price}</TableRowColumn>
         <TableRowColumn><a>Join</a></TableRowColumn>
       </TableRow>
-    )
+    );
   });
   return (
     <div>
@@ -68,7 +66,7 @@ const Schedule = (props) => {
             <TableHeaderColumn>Limit</TableHeaderColumn>
             <TableHeaderColumn>Remain</TableHeaderColumn>
             <TableHeaderColumn>Price</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
+            <TableHeaderColumn />
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false} stripedRows>
@@ -110,7 +108,7 @@ const Content = (props) => {
       </Tabs>
     </div>
   );
-}
+};
 
 class PlacePage extends React.Component {
   componentWillMount() {

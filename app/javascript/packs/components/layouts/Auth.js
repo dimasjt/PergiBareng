@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Paper } from "material-ui";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { reduxForm } from "redux-form";
 
 import * as actions from "../../actions/auth";
 
@@ -47,5 +46,5 @@ class Auth extends Component {
 
 export default connect(
   state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
 )(Auth);

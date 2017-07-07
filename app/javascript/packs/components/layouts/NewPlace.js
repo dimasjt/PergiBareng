@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { Paper } from "material-ui";
+import PropTypes from "prop-types";
 
 import * as actions from "../../actions/places";
 
@@ -32,6 +33,10 @@ class NewPlace extends React.Component {
     );
   }
 }
+
+NewPlace.propTypes = {
+  actions: PropTypes.any.isRequired,
+};
 
 export default connect(
   state => state,

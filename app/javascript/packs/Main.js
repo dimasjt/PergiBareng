@@ -23,13 +23,13 @@ export default class Main extends React.Component {
       this.checkAuth(token);
     }
   }
-  checkAuth(token) {
-    const user = decode(process.env.JWT_SECRET, token).value;
-    storeApp.dispatch({ type: LOGGED_IN, user });
-  }
   setHeaders(token) {
     AxioDevise.defaults.headers.common.Authorization = `Bearer ${token}`;
     Axio.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }
+  checkAuth(token) {
+    const user = decode(process.env.JWT_SECRET, token).value;
+    storeApp.dispatch({ type: LOGGED_IN, user });
   }
   render() {
     return (

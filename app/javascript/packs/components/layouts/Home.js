@@ -37,5 +37,5 @@ class Home extends Component {
 
 export default connect(
   state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) })
+  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
 )(Home);
