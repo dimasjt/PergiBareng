@@ -11,6 +11,7 @@ const InputField = (props) => {
       hintText={props.hint}
       fullWidth
       type={props.type}
+      validate={props.validate}
     />
   );
 };
@@ -24,28 +25,33 @@ const TextArea = (props) => {
       fullWidth
       multiLine
       rows={props.rows}
+      validate={props.validate}
     />
   );
 };
 
 InputField.defaultProps = {
   type: "text",
+  validate: [],
 };
 
 TextArea.defaultProps = {
   rows: 1,
+  validate: [],
 };
 
 TextArea.propTypes = {
   name: PropTypes.string.isRequired,
   hint: PropTypes.string.isRequired,
   rows: PropTypes.number,
+  validate: PropTypes.any,
 };
 
 InputField.propTypes = {
   name: PropTypes.string.isRequired,
   hint: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
+  validate: PropTypes.any,
 };
 
 export {

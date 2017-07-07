@@ -18,7 +18,6 @@ const Form = (props) => {
 
 Form.propTypes = {
   ...propTypes,
-  header: propTypes.string.isRequired,
 };
 
 export const RegisterForm = reduxForm({
