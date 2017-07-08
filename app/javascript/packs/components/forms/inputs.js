@@ -12,6 +12,7 @@ const InputField = (props) => {
       fullWidth
       type={props.type}
       validate={props.validate}
+      floatingLabelText={props.hint}
     />
   );
 };
@@ -38,6 +39,7 @@ const TextArea = (props) => {
       multiLine
       rows={props.rows}
       validate={props.validate}
+      floatingLabelText={props.hint}
     />
   );
 };
