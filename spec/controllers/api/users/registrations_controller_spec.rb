@@ -38,7 +38,8 @@ describe Api::Users::RegistrationsController, type: :controller do
         name: "Cool Guy",
         city: "Awesome City",
         birthdate: "01/01/1990",
-        current_password: user.password
+        current_password: user.password,
+        avatar: fixture_image
       }
       expect(subject.status).to eq(200)
       expect(subject.body).to include_json(
@@ -48,6 +49,7 @@ describe Api::Users::RegistrationsController, type: :controller do
       expect(user.name).to eq("Cool Guy")
       expect(user.city).to eq("Awesome City")
       expect(user.birthdate).to eq("01/01/1990")
+      expect(user.avatar.url).to_not be nil
     end
 
     it "should return error" do
