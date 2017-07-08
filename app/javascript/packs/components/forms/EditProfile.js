@@ -24,6 +24,7 @@ const Form = (props) => {
       <InputField name="name" hint="Full Name" />
       <InputField name="city" hint="City" />
       <InputField name="birthdate" hint="Birthdate" />
+      <br /><br />
       <FileField name="avatar" />
       <InputField name="current_password" hint="Current Password" type="password" />
 

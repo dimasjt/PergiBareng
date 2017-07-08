@@ -28,7 +28,7 @@ class Api::ApiController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:account_update) do |p|
-      p.permit(:email, :name, :city, :birthdate, :current_password)
+      p.permit(:email, :name, :city, :birthdate, :current_password, :avatar)
     end
   end
 end
