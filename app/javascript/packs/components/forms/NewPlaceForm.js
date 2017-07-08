@@ -4,7 +4,7 @@ import { RaisedButton as Button } from "material-ui";
 
 import * as validations from "./validations";
 
-import { InputField, TextArea } from "./inputs";
+import { InputField, TextArea, FileField } from "./inputs";
 
 const Form = (props) => {
   const { handleSubmit } = props;
@@ -21,7 +21,8 @@ const Form = (props) => {
         rows={4}
         validate={[validations.required, validations.min(10)]}
       />
-
+      <FileField name="image" />
+      <br />
       <Button label="Request" primary type="submit" />
     </form>
   );
