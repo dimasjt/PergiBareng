@@ -4,7 +4,7 @@ const required = (value) => {
 
 const min = (length) => {
   return (value) => {
-    return value.length <= length ? `length min ${length}` : undefined;
+    return (value && value.length <= length) ? `length min ${length}` : undefined;
   };
 };
 
