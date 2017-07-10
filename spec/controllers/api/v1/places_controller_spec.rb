@@ -1,9 +1,8 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Api::V1::PlacesController, type: :controller do
-
   describe "GET #show" do
-    let (:place) { create(:place) }
+    let(:place) { create(:place) }
 
     it "returns http success" do
       get :show, params: { id: place.id }
@@ -27,7 +26,7 @@ RSpec.describe Api::V1::PlacesController, type: :controller do
     end
 
     it "returns not found" do
-      get :show, params: { id: 10000 }
+      get :show, params: { id: 10_000 }
       expect(response).to have_http_status(404)
       expect(response.body).to include_json(
         flash: "Record not found"

@@ -52,6 +52,7 @@ class User < ApplicationRecord
 
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
+  has_many :user_schedules
 
   enum gender: GENDER
 

@@ -11,7 +11,7 @@
 #  max_users  :integer          default(0)
 #  days       :integer          default(0)
 #  price      :integer          default(0)
-#  status     :integer          default("pending")
+#  status     :integer          default(0)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -24,8 +24,10 @@
 class Schedule < ApplicationRecord
   include HasApi
 
-  STATUS = %w(pending available full ongoing completed)
+  STATUS = %w[pending available full ongoing completed].freeze
 
+  has_many :user_schedules, dependent: :nullify
+  has_many :users, through: :user_schedules
   belongs_to :user
   belongs_to :place
 
@@ -36,7 +38,7 @@ class Schedule < ApplicationRecord
   validates :user_id, :place_id, :meetup, :start_date, :end_date, presence: true
 
   def self.show_api_attributes
-    %w(id meetup days price status max_users start_date end_date)
+    %w[id meetup days price status max_users start_date end_date]
   end
 
   def self.index_api_attributes

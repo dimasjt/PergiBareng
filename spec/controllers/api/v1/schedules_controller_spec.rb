@@ -42,4 +42,18 @@ RSpec.describe Api::V1::SchedulesController, type: :controller do
       )
     end
   end
+
+  describe "POST #join" do
+    let(:place) { create(:place) }
+    let(:schedule) { create(:schedule, place: place) }
+    let(:user) { create(:user) }
+
+    it "create user schedule" do
+      auth_post user, :join, params: { place_id: place.id, id: schedule.id }
+      expect(response.status).to eq(201)
+      expect(response.body).to include_json(
+        flash: "Joined the schedule"
+      )
+    end
+  end
 end

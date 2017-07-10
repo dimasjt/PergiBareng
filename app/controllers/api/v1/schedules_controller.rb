@@ -1,6 +1,7 @@
 class Api::V1::SchedulesController < Api::V1::ResourcesController
-  before_action :authenticate_user!, only: :create
+  before_action :authenticate_user!, only: %w[create join]
   before_action :set_place
+  before_action :set_schedule, only: :join
 
   def index
     @resources = @place.schedules
@@ -17,10 +18,24 @@ class Api::V1::SchedulesController < Api::V1::ResourcesController
     end
   end
 
+  def join
+    @user_schedule = @schedule.user_schedules.new(user: current_user)
+
+    if @user_schedule.save
+      render_json flash: "Joined the schedule", status: 201
+    else
+      render_json json_errors(@user_schedule), status: 422
+    end
+  end
+
   private
 
   def set_place
     @place = Place.friendly.find(params[:place_id])
+  end
+
+  def set_schedule
+    @schedule = @place.schedules.find(params[:id])
   end
 
   def create_schedule_params

@@ -23,6 +23,7 @@ gem "foreman"
 gem "friendly_id"
 gem "kaminari"
 gem "mini_magick"
+gem "searchkick", "~> 2.3.1"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
