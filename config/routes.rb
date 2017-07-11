@@ -24,6 +24,7 @@ Rails.application.routes.draw do
         collection do
           get :schedules
           get :user_schedules
+          get :places
         end
       end
     end
