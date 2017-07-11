@@ -26,6 +26,8 @@ class Place < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  searchkick locations: [:location]
+
   include HasApi
 
   belongs_to :user
@@ -43,6 +45,16 @@ class Place < ApplicationRecord
 
   def self.nested_api_attributes
     index_api_attributes
+  end
+
+  def seach_data
+    {
+      id: id,
+      name: name,
+      description: description,
+      location: { lat: latitude, lon: longitude },
+      user_id: user_id
+    }
   end
 
   private
