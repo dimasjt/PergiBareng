@@ -2,6 +2,7 @@ import {
   FETCHED_RECOMMENDED_PLACES,
   FETCHED_PLACE,
   FETCHED_SCHEDULES,
+  FETCHED_PLACES,
 } from "../constants";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCHED_RECOMMENDED_PLACES:
+    case FETCHED_PLACES:
       return {
         ...state,
         list: action.places,

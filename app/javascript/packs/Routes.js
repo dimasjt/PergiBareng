@@ -12,6 +12,7 @@ import Snackbar from "./components/layouts/Snackbar";
 import Profile from "./components/layouts/Profile";
 import PlacePage from "./components/layouts/PlacePage";
 import NewPlace from "./components/layouts/NewPlace";
+import OwnPlaces from "./components/pages/OwnPlaces";
 
 const styles = {
   container: {
@@ -30,6 +31,7 @@ const Routes = ({ history, ConnectedRouter }) => {
         <div style={styles.container}>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/places" component={OwnPlaces} />
             <Route exact path="/places/new" component={NewPlace} />
             <Route path="/places/:slug" component={PlacePage} />
             <Route path="/auth" component={Auth} />

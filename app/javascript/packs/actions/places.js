@@ -1,5 +1,5 @@
 import {
-  FETCHED_RECOMMENDED_PLACES,
+  FETCHED_PLACES,
   FETCHED_PLACE,
   FETCHED_SCHEDULES,
   CREATE_ERROR,
@@ -12,13 +12,30 @@ export function getRecommendedPlaces() {
     try {
       const result = await Axio.get("/places");
       dispatch({
-        type: FETCHED_RECOMMENDED_PLACES,
+        type: FETCHED_PLACES,
         places: result.data.places,
       });
     } catch (error) {
       console.log(error);
     }
   };
+}
+
+export function getOwnPlaces() {
+  return async (dispatch) => {
+    try {
+      const result = await Axio.get("/users/places");
+      dispatch({
+        type: FETCHED_PLACES,
+        places: result.data.places,
+      });
+    } catch (e) {
+      dispatch({
+        type: SHOW_FLASH,
+        flash: "Failed to fetch places",
+      });
+    }
+  }
 }
 
 export function getPlace(slug) {
