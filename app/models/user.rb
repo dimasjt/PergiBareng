@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
-  has_many :user_schedules
+  has_many :user_schedules, dependent: :nullify
 
   enum gender: GENDER
 
@@ -60,11 +60,15 @@ class User < ApplicationRecord
   validates :birthdate, format: { with: BIRTHDATE_REGEX }, on: :update
 
   def self.auth_api_attributes
-    %w(auth_token)
+    %w[auth_token]
   end
 
   def self.self_api_attributes
-    %w(id email name birthdate avatar gender city created_at confirmed_at)
+    %w[id email name birthdate avatar gender city created_at confirmed_at]
+  end
+
+  def self.nested_api_attributes
+    self_api_attributes
   end
 
   def self.secret_token

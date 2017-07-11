@@ -41,6 +41,10 @@ class Place < ApplicationRecord
     index_api_attributes + %w[latitude longitude address created_at]
   end
 
+  def self.nested_api_attributes
+    index_api_attributes
+  end
+
   private
 
   def slug_candidates

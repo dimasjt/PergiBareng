@@ -17,6 +17,16 @@ module ApiHelpers
     { controller_name.singularize => object.to_api_data(:show) }
   end
 
+  def object_json(object)
+    if object.try(:id).present?
+      { object.class.name.underscore => object.to_api_data(:show) }
+    elsif !object.is_a? Hash
+      { object.name.underscore.pluralize => object.to_api_data(:index) }
+    else
+      object
+    end
+  end
+
   def render_json(object, **options)
     if options[:flash]
       object[:flash] = options[:flash]
@@ -26,6 +36,6 @@ module ApiHelpers
       end
     end
 
-    render json: object, status: options[:status] || 200
+    render json: object_json(object), status: options[:status] || 200
   end
 end

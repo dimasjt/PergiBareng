@@ -19,6 +19,13 @@ Rails.application.routes.draw do
           end
         end
       end
+
+      resources :users, only: [] do
+        collection do
+          get :schedules
+          get :user_schedules
+        end
+      end
     end
   end
 

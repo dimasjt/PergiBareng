@@ -36,10 +36,6 @@ module HasApi
       api_attributes
     end
 
-    def nested_api_attributes
-      index_api_attributes
-    end
-
     def image_nested(value)
       keys = ImageUploader.versions.keys
       Hash[*keys.map do |key|

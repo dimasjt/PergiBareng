@@ -27,7 +27,7 @@ class Schedule < ApplicationRecord
   STATUS = %w[pending available full ongoing completed].freeze
 
   has_many :user_schedules, dependent: :nullify
-  has_many :users, through: :user_schedules
+  has_many :joined_users, class_name: "User", through: :user_schedules
   belongs_to :user
   belongs_to :place
 
@@ -38,10 +38,14 @@ class Schedule < ApplicationRecord
   validates :user_id, :place_id, :meetup, :start_date, :end_date, presence: true
 
   def self.show_api_attributes
-    %w[id meetup days price status max_users start_date end_date]
+    %w[id meetup days price status max_users start_date end_date user place]
   end
 
   def self.index_api_attributes
+    show_api_attributes
+  end
+
+  def self.nested_api_attributes
     show_api_attributes
   end
 
