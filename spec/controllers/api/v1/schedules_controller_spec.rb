@@ -54,6 +54,7 @@ RSpec.describe Api::V1::SchedulesController, type: :controller do
       expect(response.body).to include_json(
         flash: "Joined the schedule"
       )
+      expect(UserSchedule.count).to eq(1)
     end
   end
 end
