@@ -56,5 +56,25 @@ RSpec.describe Api::V1::SchedulesController, type: :controller do
       )
       expect(UserSchedule.count).to eq(1)
     end
+
+    context "invalid" do
+      subject { auth_post user, :join, params: { place_id: @schedule.place_id, id: @schedule.id } }
+
+      it "own schedule" do
+        @schedule = create(:schedule, user: user)
+        expect(UserSchedule.count).to eq(0)
+        expect(subject.status).to eq(422)
+      end
+
+      it "already join" do
+        @schedule = create(:schedule, user_schedules: create_list(:user_schedule, 1, user: user))
+        expect(subject.status).to eq(422)
+      end
+
+      it "limit max_users" do
+        @schedule = create(:schedule, max_users: 1, user_schedules: create_list(:user_schedule, 1))
+        expect(subject.status).to eq(422)
+      end
+    end
   end
 end

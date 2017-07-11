@@ -19,14 +19,21 @@ class UserSchedule < ApplicationRecord
   belongs_to :schedule
 
   validates :user, :schedule, presence: true
-  # validates :user, uniqueness: { scope: :schedule, message: "already join" }
+  validates :user, uniqueness: { scope: :schedule, message: "already join" }
   validate :max_users_schedule
+  validate :own_schedule
 
   private
 
   def max_users_schedule
     if schedule && schedule.max_users <= schedule.user_schedules.count
       errors.add(:user, "the schedule is full")
+    end
+  end
+
+  def own_schedule
+    if schedule && user && schedule.user == user
+      errors.add(:user, "cannot join own schedule")
     end
   end
 end
