@@ -77,4 +77,22 @@ RSpec.describe Api::V1::SchedulesController, type: :controller do
       end
     end
   end
+
+  describe "#unjoin" do
+    let!(:user) { create(:user) }
+    let!(:user_schedule) { create(:user_schedule, user: user) }
+
+    it "should destroy user_schedule" do
+      expect {
+        auth_delete user, :unjoin, params: { place_id: user_schedule.place.id, id: user_schedule.schedule.id }
+      }.to change {
+        UserSchedule.count
+      }.from(1).to(0)
+    end
+
+    it "should return 404" do
+      auth_delete user, :unjoin, params: { place_id: user_schedule.place.id, id: 99_999 }
+      expect(response.status).to eq(404)
+    end
+  end
 end

@@ -1,7 +1,7 @@
 class Api::V1::SchedulesController < Api::V1::ResourcesController
-  before_action :authenticate_user!, only: %w[create join]
+  before_action :authenticate_user!, only: %w[create join unjoin]
   before_action :set_place
-  before_action :set_schedule, only: :join
+  before_action :set_schedule, only: %w[join unjoin]
 
   def index
     @resources = @place.schedules
@@ -26,6 +26,12 @@ class Api::V1::SchedulesController < Api::V1::ResourcesController
     else
       render_json json_errors(@user_schedule), status: 422
     end
+  end
+
+  def unjoin
+    @user_schedule = @schedule.user_schedules.find_by!(user_id: current_user.id)
+    @user_schedule.destroy!
+    render_json Hash.new, flash: "Unjoined from the schedule", status: 200
   end
 
   private

@@ -19,6 +19,7 @@ class UserSchedule < ApplicationRecord
 
   belongs_to :user
   belongs_to :schedule
+  has_one :place, through: :schedule
 
   validates :user, :schedule, presence: true
   validates :user, uniqueness: { scope: :schedule, message: "already join" }

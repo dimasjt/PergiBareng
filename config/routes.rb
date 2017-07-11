@@ -16,6 +16,7 @@ Rails.application.routes.draw do
         resources :schedules, only: [:create, :index] do
           member do
             post :join
+            delete :unjoin
           end
         end
       end
