@@ -1,7 +1,8 @@
 import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { Paper } from "material-ui";
+import { Paper, RaisedButton as Button } from "material-ui";
+import { Card, CardMedia, CardTitle, CardActions } from "material-ui/Card";
 
 import * as actions from "../../actions/places";
 
@@ -11,11 +12,11 @@ const styles = {
   container: {},
   containerCards: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
+    flexFlow: "row wrap",
   },
   card: {
-    flex: "1",
+    flexFlow: "column",
   },
 };
 
@@ -25,10 +26,17 @@ class OwnPlaces extends React.Component {
   }
   render() {
     const places = this.props.places.list.map(place => {
+      const title = <CardTitle>{place.name}</CardTitle>
       return (
-        <Paper style={styles.card} key={place.id}>
-          <CardPlace place={place} />
-        </Paper>
+        <Card key={place.id} style={styles.card}>
+          <CardMedia overlay={title}>
+            <img src={place.image.medium} />
+          </CardMedia>
+          <CardActions>
+            <Button label="Edit" />
+            <Button label="Delete" />
+          </CardActions>
+        </Card>
       );
     });
 
