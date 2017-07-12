@@ -33,7 +33,7 @@ class OwnPlaces extends React.Component {
             <img src={place.image.medium} />
           </CardMedia>
           <CardActions>
-            <Button label="Edit" />
+            <Button label="Edit" href={`/places/${place.slug}/edit`} />
             <Button label="Delete" />
           </CardActions>
         </Card>

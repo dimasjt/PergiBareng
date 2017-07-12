@@ -13,6 +13,7 @@ import Profile from "./components/layouts/Profile";
 import PlacePage from "./components/layouts/PlacePage";
 import NewPlace from "./components/layouts/NewPlace";
 import OwnPlaces from "./components/pages/OwnPlaces";
+import EditPlacePage from "./components/pages/EditPlacePage";
 
 const styles = {
   container: {
@@ -33,6 +34,7 @@ const Routes = ({ history, ConnectedRouter }) => {
             <Route exact path="/" component={Home} />
             <Route exact path="/places" component={OwnPlaces} />
             <Route exact path="/places/new" component={NewPlace} />
+            <Route exact path="/places/:slug/edit" component={EditPlacePage} />
             <Route path="/places/:slug" component={PlacePage} />
             <Route path="/auth" component={Auth} />
             <Route path="/profile" component={Profile} />
