@@ -1,5 +1,5 @@
 class Api::ApiController < ActionController::Base
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :reset_session
   before_action :authenticate_user!
 
   respond_to :json
