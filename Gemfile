@@ -18,9 +18,10 @@ gem "jbuilder", "~> 2.5"
 
 gem "carrierwave"
 gem "devise"
-gem "jwt"
 gem "foreman"
 gem "friendly_id"
+gem "graphql"
+gem "jwt"
 gem "kaminari"
 gem "mini_magick"
 gem "searchkick", "~> 2.3.1"
@@ -38,6 +39,7 @@ end
 
 group :development do
   gem "annotate"
+  gem "graphiql-rails"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "rubocop", require: false
   gem "spring"
