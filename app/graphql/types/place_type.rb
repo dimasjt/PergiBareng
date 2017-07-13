@@ -9,4 +9,12 @@ Types::PlaceType = GraphQL::ObjectType.define do
   field :latitude, types.Int
   field :longitude, types.Int
   field :image, Types::ImageType
+
+  field :schedules do
+    type types[Types::ScheduleType]
+    argument :size, types.Int, default_value: 10
+    resolve ->(place, args, ctx) do
+      place.schedules.limit(args[:size])
+    end
+  end
 end

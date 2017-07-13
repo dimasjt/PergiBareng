@@ -1,6 +1,7 @@
 Types::ImageType = GraphQL::ObjectType.define do
   name "ImageType"
 
+  # TODO refactor me
   field :thumb, types.String do
     resolve ->(obj, args, ctx) { obj.thumb.url }
   end
