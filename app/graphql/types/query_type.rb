@@ -11,9 +11,9 @@ Types::QueryType = GraphQL::ObjectType.define do
 
   field :place do
     type Types::PlaceType
-    argument :id, !types.ID
+    argument :slug, !types.String
     resolve ->(obj, args, ctx) {
-      Place.find args["id"]
+      Place.friendly.find args[:slug]
     }
   end
 

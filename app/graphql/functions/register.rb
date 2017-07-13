@@ -1,12 +1,5 @@
 class Functions::Register < GraphQL::Function
-  RegisterInput = GraphQL::InputObjectType.define do
-    name "RegisterInput"
-
-    argument :email, !types.String
-    argument :password, !types.String
-  end
-
-  argument :user, !RegisterInput
+  argument :user, !Types::AuthType
 
   type Types::UserType
 
