@@ -1,10 +1,9 @@
-class GraphqlController < ApplicationController
+class Api::GraphqlController < Api::ApiController
   def execute
     variables = ensure_hash(params[:variables])
     query = params[:query]
     context = {
-      # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user
     }
     result = AppSchema.execute(query, variables: variables, context: context)
     render json: result
