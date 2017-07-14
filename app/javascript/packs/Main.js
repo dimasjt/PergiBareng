@@ -1,15 +1,17 @@
 import React from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
-import { Provider } from "react-redux";
+// import { Provider } from "react-redux";
 import { createBrowserHistory } from "history";
 import { ConnectedRouter, routerMiddleware } from "react-router-redux";
 import { decode } from "json-web-token";
-
-import Routes from "./Routes";
-import store from "./store";
+import { ApolloProvider } from "react-apollo";
 
 import { LOGGED_IN } from "./constants";
 import { AxioDevise, Axio } from "./Axio";
+import { client } from "./reducers/apollo";
+
+import Routes from "./Routes";
+import store from "./store";
 
 const history = createBrowserHistory();
 const routeMiddleware = routerMiddleware(history);
@@ -33,11 +35,11 @@ export default class Main extends React.Component {
   }
   render() {
     return (
-      <Provider store={storeApp}>
+      <ApolloProvider store={storeApp} client={client}>
         <MuiThemeProvider>
           <Routes history={history} ConnectedRouter={ConnectedRouter} />
         </MuiThemeProvider>
-      </Provider>
+      </ApolloProvider>
     );
   }
 }
