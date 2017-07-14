@@ -3,12 +3,12 @@ import {
   FETCHED_PLACE,
   FETCHED_SCHEDULES,
   FETCHED_PLACES,
-} from "../constants";
+} from "../constants"
 
 const initialState = {
   list: [],
   active: null,
-};
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         list: action.places,
-      };
+      }
     case FETCHED_PLACE:
       return {
         ...state,
@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
           ...action.place,
           schedules: [],
         },
-      };
+      }
     case FETCHED_SCHEDULES:
       return {
         ...state,
@@ -34,8 +34,8 @@ export default function (state = initialState, action) {
           ...state.active,
           schedules: action.schedules,
         },
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

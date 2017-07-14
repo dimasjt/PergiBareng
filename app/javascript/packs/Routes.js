@@ -1,19 +1,19 @@
-import React from "react";
+import React from "react"
 import {
   Route,
   Switch,
-} from "react-router-dom";
-import PropTypes from "prop-types";
+} from "react-router-dom"
+import PropTypes from "prop-types"
 
-import Home from "./components/layouts/Home";
-import Auth from "./components/layouts/Auth";
-import Header from "./components/layouts/Header";
-import Snackbar from "./components/layouts/Snackbar";
-import Profile from "./components/layouts/Profile";
-import PlacePage from "./components/layouts/PlacePage";
-import NewPlace from "./components/layouts/NewPlace";
-import OwnPlaces from "./components/pages/OwnPlaces";
-import EditPlacePage from "./components/pages/EditPlacePage";
+import Home from "./components/layouts/Home"
+import Auth from "./components/layouts/Auth"
+import Header from "./components/layouts/Header"
+import Snackbar from "./components/layouts/Snackbar"
+import Profile from "./components/layouts/Profile"
+import PlacePage from "./components/layouts/PlacePage"
+import NewPlace from "./components/layouts/NewPlace"
+import OwnPlaces from "./components/pages/OwnPlaces"
+import EditPlacePage from "./components/pages/EditPlacePage"
 
 const styles = {
   container: {
@@ -21,7 +21,7 @@ const styles = {
     width: "94%",
     margin: "0 auto",
   },
-};
+}
 
 const Routes = ({ history, ConnectedRouter }) => {
   return (
@@ -44,12 +44,12 @@ const Routes = ({ history, ConnectedRouter }) => {
         <Snackbar />
       </div>
     </ConnectedRouter>
-  );
-};
+  )
+}
 
 Routes.propTypes = {
   history: PropTypes.object.isRequired,
   ConnectedRouter: PropTypes.func.isRequired,
-};
+}
 
-export default Routes;
+export default Routes

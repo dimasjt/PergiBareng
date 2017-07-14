@@ -1,11 +1,11 @@
-import { combineReducers } from "redux";
-import { routerReducer as routing } from "react-router-redux";
-import { reducer as formReducer } from "redux-form";
+import { combineReducers } from "redux"
+import { routerReducer as routing } from "react-router-redux"
+import { reducer as formReducer } from "redux-form"
 
-import places from "./places";
-import user from "./user";
-import alert from "./alert";
-import apollo from "./apollo";
+import places from "./places"
+import user from "./user"
+import alert from "./alert"
+import apollo from "./apollo"
 
 const combinedReducers = combineReducers({
   places,
@@ -14,6 +14,6 @@ const combinedReducers = combineReducers({
   alert,
   apollo,
   form: formReducer,
-});
+})
 
-export default combinedReducers;
+export default combinedReducers

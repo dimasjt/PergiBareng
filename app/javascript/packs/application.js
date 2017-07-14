@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import injectTapEventPlugin from "react-tap-event-plugin";
-import { AppContainer } from "react-hot-loader";
-import "babel-polyfill";
+import React from "react"
+import ReactDOM from "react-dom"
+import injectTapEventPlugin from "react-tap-event-plugin"
+import { AppContainer } from "react-hot-loader"
+import "babel-polyfill"
 
-import Main from "./Main";
+import Main from "./Main"
 
-injectTapEventPlugin();
+injectTapEventPlugin()
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   ReactDOM.render(
@@ -21,13 +21,13 @@ const render = (Component) => {
       <Component />
     </AppContainer>,
     document.getElementById("root"),
-  );
-};
+  )
+}
 
-render(Main);
+render(Main)
 
 if (module.hot) {
   module.hot.accept("./Main", () => {
-    render(Main);
-  });
+    render(Main)
+  })
 }
