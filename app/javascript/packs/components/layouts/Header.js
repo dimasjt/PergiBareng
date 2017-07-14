@@ -18,7 +18,7 @@ const HeaderItem = ({ path, openDrawer, label }) => {
       <MenuItem onTouchTap={openDrawer}>{label}</MenuItem>
     </Link>
   );
-}
+};
 
 const UnLogged = ({ openDrawer }) => {
   return (
