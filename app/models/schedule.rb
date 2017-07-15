@@ -11,7 +11,7 @@
 #  max_users  :integer          default(0)
 #  days       :integer          default(0)
 #  price      :integer          default(0)
-#  status     :integer          default(0)
+#  status     :integer          default("pending")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

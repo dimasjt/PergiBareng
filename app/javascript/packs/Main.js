@@ -8,7 +8,7 @@ import { ApolloProvider } from "react-apollo"
 
 import { LOGGED_IN } from "./constants"
 import { AxioDevise, Axio } from "./Axio"
-import { client } from "./reducers/apollo"
+import apollo from "./apollo"
 
 import Routes from "./Routes"
 import store from "./store"
@@ -35,7 +35,7 @@ export default class Main extends React.Component {
   }
   render() {
     return (
-      <ApolloProvider store={storeApp} client={client}>
+      <ApolloProvider store={storeApp} client={apollo}>
         <MuiThemeProvider>
           <Routes history={history} ConnectedRouter={ConnectedRouter} />
         </MuiThemeProvider>
