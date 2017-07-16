@@ -5,7 +5,7 @@ import {
 } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import Home from "./components/layouts/Home"
+import HomePage from "./components/pages/HomePage"
 import Auth from "./components/layouts/Auth"
 import Header from "./components/layouts/Header"
 import Snackbar from "./components/layouts/Snackbar"
@@ -31,7 +31,7 @@ const Routes = ({ history, ConnectedRouter }) => {
 
         <div style={styles.container}>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/places" component={OwnPlaces} />
             <Route exact path="/places/new" component={NewPlace} />
             <Route exact path="/places/:slug/edit" component={EditPlacePage} />

@@ -15,3 +15,5 @@ export const SHOW_ERROR = "SHOW_ERROR"
 export const CREATE_ERROR = "CREATE_ERROR"
 export const UPDATE_ERROR = "UPDATE_ERROR"
 export const HIDE_FLASH = "HIDE_FLASH"
+
+export const APOLLO_QUERY_RESULT = "APOLLO_QUERY_RESULT"

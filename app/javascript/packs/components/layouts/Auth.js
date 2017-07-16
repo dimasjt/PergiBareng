@@ -1,11 +1,13 @@
-import React, { Component } from "react";
-import { Paper } from "material-ui";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import React, { Component } from "react"
+import { Paper } from "material-ui"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import PropTypes from "prop-types"
+import { graphql, gql } from "react-apollo"
 
-import * as actions from "../../actions/auth";
+import * as actions from "../../actions/auth"
 
-import { RegisterForm, LoginForm } from "../forms/AuthForm";
+import { RegisterForm, LoginForm } from "../forms/AuthForm"
 
 const styles = {
   container: {
@@ -20,14 +22,15 @@ const styles = {
     display: "inline-block",
     textAlign: "left",
   },
-};
+}
 
 class Auth extends Component {
   registerUser = (values) => {
-    this.props.actions.registerUser(values);
+    this.props.register({ values })
+    // this.props.actions.registerUser(values)
   }
   loginUser = (values) => {
-    this.props.actions.loginUser(values);
+    this.props.actions.loginUser(values)
   }
   render() {
     return (
@@ -40,11 +43,31 @@ class Auth extends Component {
           <LoginForm header="Login" onSubmit={this.loginUser} />
         </Paper>
       </div>
-    );
+    )
   }
 }
 
-export default connect(
-  state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
-)(Auth);
+Auth.propTypes = {
+  actions: PropTypes.any.isRequired,
+}
+
+const registerMutation = gql`
+  mutation register($user: RegisterUser!) {
+    register(user: $user) {
+      auth_token
+    }
+  }
+`
+
+const withMutation = graphql(registerMutation, {
+  props: ({ mutate }) => ({
+    register: ({ email, password }) => {
+      mutate({ variables: { email, password } })
+    },
+  }),
+})
+
+export default withMutation(connect(
+  (state) => state,
+  (dispatch) => ({ actions: bindActionCreators(actions, dispatch) }),
+)(Auth))
