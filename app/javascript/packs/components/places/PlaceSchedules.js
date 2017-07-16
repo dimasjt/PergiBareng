@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {
   Table,
   TableHeader,
@@ -6,7 +6,7 @@ import {
   TableRow,
   TableHeaderColumn,
   TableRowColumn,
-} from "material-ui/Table";
+} from "material-ui/Table"
 
 const PlaceSchedules = (props) => {
   const rows = props.place.schedules.map((schedule) => {
@@ -18,8 +18,8 @@ const PlaceSchedules = (props) => {
         <TableRowColumn>{schedule.price}</TableRowColumn>
         <TableRowColumn><a>Join</a></TableRowColumn>
       </TableRow>
-    );
-  });
+    )
+  })
   return (
     <div>
       <Table multiSelectable={false}>
@@ -37,7 +37,7 @@ const PlaceSchedules = (props) => {
         </TableBody>
       </Table>
     </div>
-  );
-};
+  )
+}
 
-export default PlaceSchedules;
+export default PlaceSchedules

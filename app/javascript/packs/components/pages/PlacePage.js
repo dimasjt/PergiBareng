@@ -1,12 +1,14 @@
-import React from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Tabs, Tab } from "material-ui/Tabs";
+import React from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { Tabs, Tab } from "material-ui/Tabs"
+import PropTypes from "prop-types"
+import { graphql, gql } from "react-apollo"
 
-import * as actions from "../../actions/places";
+import * as actions from "../../actions/places"
 
-import Schedule from "../places/PlaceSchedules";
-import Map from "../places/Map";
+import Schedule from "../places/PlaceSchedules"
+import Map from "../places/Map"
 
 const styles = {
   container: {
@@ -19,32 +21,23 @@ const styles = {
   side: {
     flex: 2,
   },
-};
-
-const PlaceHeader = (props) => {
-  const { place } = props;
-  return (
-    <div>
-      <img src={place.image.large} alt={place.name} />
-    </div>
-  );
-};
+}
 
 const Overview = (props) => {
-  const { place } = props;
+  const { place } = props
   return (
     <div>
       <h2>Overview about {place.name}</h2>
       <p>{place.description}</p>
     </div>
-  );
-};
+  )
+}
 
 const Review = (props) => {
   return (
     <div>Review</div>
-  );
-};
+  )
+}
 
 const Content = (props) => {
   return (
@@ -54,7 +47,7 @@ const Content = (props) => {
           <Overview {...props} />
         </Tab>
         <Tab label="Schedule" onActive={props.fetchSchedules}>
-          <Schedule {...props} />
+          {/* <Schedule {...props} /> */}
         </Tab>
         <Tab label="Reviews">
           <Review {...props} />
@@ -64,26 +57,28 @@ const Content = (props) => {
         </Tab>
       </Tabs>
     </div>
-  );
-};
+  )
+}
 
 class PlacePage extends React.Component {
-  componentWillMount() {
-    const { slug } = this.props.match.params;
-    this.props.actions.getPlace(slug);
+  static propTypes = {
+    places: PropTypes.object.isRequired,
+    actions: PropTypes.any.isRequired,
   }
   fetchSchedules = () => {
-    const { slug } = this.props.match.params;
-    this.props.actions.getSchedules(slug);
+    const { slug } = this.props.match.params
+    this.props.actions.getSchedules(slug)
   }
   render() {
-    const place = this.props.places.active;
+    const place = this.props.places.active
     if (!place) {
-      return null;
+      return null
     }
     return (
       <div>
-        <PlaceHeader place={place} />
+        <div>
+          <img src={place.image.large} alt={place.name} />
+        </div>
         <div style={styles.container}>
           <Content
             {...this.props}
@@ -96,11 +91,26 @@ class PlacePage extends React.Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default connect(
-  state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
-)(PlacePage);
+const getPlace = gql`
+  query place {
+    place(slug: "the-daffodil-sky") {
+      id
+      name
+      description
+      image {
+        large
+      }
+    }
+  }
+`
+
+const withData = graphql(getPlace)
+
+export default withData(connect(
+  (state) => state,
+  (dispatch) => ({ actions: bindActionCreators(actions, dispatch) }),
+)(PlacePage))
