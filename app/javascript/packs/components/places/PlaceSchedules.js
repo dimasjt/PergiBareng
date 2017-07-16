@@ -7,9 +7,10 @@ import {
   TableHeaderColumn,
   TableRowColumn,
 } from "material-ui/Table"
+import PropTypes from "prop-types"
 
-const PlaceSchedules = (props) => {
-  const rows = props.place.schedules.map((schedule) => {
+const PlaceSchedules = ({ schedules }) => {
+  const rows = schedules.map((schedule) => {
     return (
       <TableRow key={schedule.id}>
         <TableRowColumn>{schedule.start_date}</TableRowColumn>
@@ -39,5 +40,14 @@ const PlaceSchedules = (props) => {
     </div>
   )
 }
+
+// PlaceSchedules.propTypes = {
+//   schedules: PropTypes.arrayOf(PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     max_users: PropTypes.number.isRequired,
+//     price: PropTypes.number.isRequired,
+//     start_date: PropTypes.number.isRequired,
+//   })).isRequired,
+// }
 
 export default PlaceSchedules
