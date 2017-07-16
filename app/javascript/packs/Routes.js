@@ -5,13 +5,13 @@ import {
 } from "react-router-dom"
 import PropTypes from "prop-types"
 
-import HomePage from "./components/pages/HomePage"
-import Auth from "./components/layouts/Auth"
 import Header from "./components/layouts/Header"
 import Snackbar from "./components/layouts/Snackbar"
-import Profile from "./components/layouts/Profile"
-import PlacePage from "./components/layouts/PlacePage"
-import NewPlace from "./components/layouts/NewPlace"
+import HomePage from "./components/pages/HomePage"
+import AuthPage from "./components/pages/AuthPage"
+import ProfilePage from "./components/pages/ProfilePage"
+import PlacePage from "./components/pages/PlacePage"
+import NewPlace from "./components/pages/NewPlace"
 import OwnPlaces from "./components/pages/OwnPlaces"
 import EditPlacePage from "./components/pages/EditPlacePage"
 
@@ -36,8 +36,8 @@ const Routes = ({ history, ConnectedRouter }) => {
             <Route exact path="/places/new" component={NewPlace} />
             <Route exact path="/places/:slug/edit" component={EditPlacePage} />
             <Route path="/places/:slug" component={PlacePage} />
-            <Route path="/auth" component={Auth} />
-            <Route path="/profile" component={Profile} />
+            <Route path="/auth" component={AuthPage} />
+            <Route path="/profile" component={ProfilePage} />
           </Switch>
         </div>
 

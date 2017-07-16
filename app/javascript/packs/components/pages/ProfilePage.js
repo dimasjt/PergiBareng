@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { Paper } from "material-ui";
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { bindActionCreators } from "redux"
+import { Paper } from "material-ui"
+import PropTypes from "prop-types"
 
-import * as actions from "../../actions/user";
+import * as actions from "../../actions/user"
 
-import EditProfile from "../forms/EditProfile";
+import EditProfile from "../forms/EditProfile"
 
 const styles = {
   container: {
@@ -26,14 +27,18 @@ const styles = {
   leftPanel: {
     padding: "30px",
   },
-};
+}
 
-class Profile extends Component {
+class ProfilePage extends Component {
+  static propTypes = {
+    actions: PropTypes.any.isRequired,
+    user: PropTypes.object.isRequired,
+  }
   handleUpdateUser = (values) => {
-    this.props.actions.updateUser(values);
+    this.props.actions.updateUser(values)
   }
   render() {
-    const { user } = this.props;
+    const { user } = this.props
 
     return (
       <div style={styles.container}>
@@ -56,11 +61,11 @@ class Profile extends Component {
           </Paper>
         </div>
       </div>
-    );
+    )
   }
 }
 
 export default connect(
-  state => state,
-  dispatch => ({ actions: bindActionCreators(actions, dispatch) }),
-)(Profile);
+  (state) => state,
+  (dispatch) => ({ actions: bindActionCreators(actions, dispatch) }),
+)(ProfilePage)

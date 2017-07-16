@@ -24,7 +24,10 @@ const styles = {
   },
 }
 
-class Auth extends Component {
+class AuthPage extends Component {
+  static propTypes = {
+    actions: PropTypes.any.isRequired,
+  }
   registerUser = (values) => {
     this.props.register({ values })
     // this.props.actions.registerUser(values)
@@ -47,10 +50,6 @@ class Auth extends Component {
   }
 }
 
-Auth.propTypes = {
-  actions: PropTypes.any.isRequired,
-}
-
 const registerMutation = gql`
   mutation register($user: RegisterUser!) {
     register(user: $user) {
@@ -70,4 +69,4 @@ const withMutation = graphql(registerMutation, {
 export default withMutation(connect(
   (state) => state,
   (dispatch) => ({ actions: bindActionCreators(actions, dispatch) }),
-)(Auth))
+)(AuthPage))
