@@ -3,9 +3,10 @@ import { Paper } from "material-ui"
 import { connect } from "react-redux"
 import { bindActionCreators } from "redux"
 import PropTypes from "prop-types"
-import { graphql, gql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 
 import * as actions from "../../actions/auth"
+import { register, login } from "../../mutations/auth"
 
 import { RegisterForm, LoginForm } from "../forms/AuthForm"
 
@@ -26,45 +27,46 @@ const styles = {
 
 class AuthPage extends Component {
   static propTypes = {
-    actions: PropTypes.any.isRequired,
-  }
-  registerUser = (values) => {
-    this.props.register({ values })
-    // this.props.actions.registerUser(values)
-  }
-  loginUser = (values) => {
-    this.props.actions.loginUser(values)
+    register: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
   }
   render() {
     return (
       <div style={styles.container}>
         <Paper zDepth={1} style={styles.wrapper}>
-          <RegisterForm header="Register" onSubmit={this.registerUser} />
+          <RegisterForm
+            header="Register"
+            onSubmit={(values) => { this.props.register(values) }}
+          />
         </Paper>
 
         <Paper zDepth={1} style={styles.wrapper}>
-          <LoginForm header="Login" onSubmit={this.loginUser} />
+          <LoginForm
+            header="Login"
+            onSubmit={(values) => { this.props.login(values) }}
+          />
         </Paper>
       </div>
     )
   }
 }
 
-const registerMutation = gql`
-  mutation register($user: RegisterUser!) {
-    register(user: $user) {
-      auth_token
-    }
-  }
-`
-
-const withMutation = graphql(registerMutation, {
-  props: ({ mutate }) => ({
-    register: ({ email, password }) => {
-      mutate({ variables: { email, password } })
-    },
+const withMutation = compose(
+  graphql(register, {
+    props: ({ mutate }) => ({
+      register: (values) => {
+        mutate({ variables: { ...values } })
+      },
+    }),
   }),
-})
+  graphql(login, {
+    props: ({ mutate }) => ({
+      login: (values) => {
+        mutate({ variables: { ...values } })
+      },
+    }),
+  }),
+)
 
 export default withMutation(connect(
   (state) => state,

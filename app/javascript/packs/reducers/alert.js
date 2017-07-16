@@ -2,6 +2,7 @@ import {
   SHOW_FLASH,
   CREATE_ERROR,
   HIDE_FLASH,
+  APOLLO_MUTATION_ERROR,
 } from "../constants"
 
 const initializeState = {
@@ -19,6 +20,14 @@ function alert(state = initializeState, action) {
         ...state,
         flash: {
           message: action.flash,
+          open: true,
+        },
+      }
+    case APOLLO_MUTATION_ERROR:
+      return {
+        ...state,
+        flash: {
+          message: action.error.message,
           open: true,
         },
       }
