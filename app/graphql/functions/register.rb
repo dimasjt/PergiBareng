@@ -4,9 +4,6 @@ class Functions::Register < GraphQL::Function
   type Types::UserType
 
   def call(obj, args, ctx)
-    User.create!(
-      email: args[:user][:email],
-      password: args[:user][:password]
-    )
+    User.create!(args[:user].to_h)
   end
 end

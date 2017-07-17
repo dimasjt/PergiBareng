@@ -14,6 +14,6 @@ class Functions::RequestPlace < GraphQL::Function
   type Types::PlaceType
 
   def call(obj, args, ctx)
-    Place.create!(args[:place])
+    Place.create!(args[:place].to_h)
   end
 end

@@ -5,5 +5,6 @@ Types::MutationType = GraphQL::ObjectType.define do
   field :login, function: Functions::Login.new
 
   field :requestPlace, function: Functions::RequestPlace.new
+  field :createSchedule, function: Functions::CreateSchedule.new
   field :joinSchedule, function: Functions::JoinSchedule.new
 end
