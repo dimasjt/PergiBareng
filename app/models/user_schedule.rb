@@ -15,8 +15,6 @@
 #
 
 class UserSchedule < ApplicationRecord
-  include HasApi
-
   belongs_to :user
   belongs_to :schedule
   has_one :place, through: :schedule
@@ -25,10 +23,6 @@ class UserSchedule < ApplicationRecord
   validates :user, uniqueness: { scope: :schedule, message: "already join" }
   validate :max_users_schedule
   validate :own_schedule
-
-  def self.index_api_attributes
-    %w[id user schedule created_at]
-  end
 
   private
 

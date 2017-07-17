@@ -22,8 +22,6 @@
 #
 
 class Schedule < ApplicationRecord
-  include HasApi
-
   STATUS = %w[pending available full ongoing completed].freeze
 
   has_many :user_schedules, dependent: :nullify
@@ -36,18 +34,6 @@ class Schedule < ApplicationRecord
   enum status: STATUS
 
   validates :user_id, :place_id, :meetup, :start_date, :end_date, presence: true
-
-  def self.show_api_attributes
-    %w[id meetup days price status max_users start_date end_date user place]
-  end
-
-  def self.index_api_attributes
-    show_api_attributes
-  end
-
-  def self.nested_api_attributes
-    show_api_attributes
-  end
 
   private
 

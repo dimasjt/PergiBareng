@@ -48,8 +48,6 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
 
-  include HasApi
-
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
   has_many :user_schedules, dependent: :nullify
@@ -58,18 +56,6 @@ class User < ApplicationRecord
 
   validates :name, :birthdate, :gender, :city, presence: true, on: :update
   validates :birthdate, format: { with: BIRTHDATE_REGEX }, on: :update
-
-  def self.auth_api_attributes
-    %w[auth_token]
-  end
-
-  def self.self_api_attributes
-    %w[id email name birthdate avatar gender city created_at confirmed_at]
-  end
-
-  def self.nested_api_attributes
-    self_api_attributes
-  end
 
   def self.secret_token
     ENV["JWT_SECRET"]
