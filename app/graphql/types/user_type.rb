@@ -8,7 +8,8 @@ Types::UserType = GraphQL::ObjectType.define do
   end
   field :auth_token, types.String do
     resolve ->(obj, args, ctx) {
-      obj == ctx[:current_user] ? obj.auth_token : nil
+      # obj == ctx[:current_user] ? obj.auth_token : nil
+      obj.try(:auth_token)
     }
   end
 end

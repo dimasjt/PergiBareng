@@ -4,8 +4,13 @@ Types::QueryType = GraphQL::ObjectType.define do
   field :places do
     type types[Types::PlaceType]
     argument :recommended, types.Boolean
-    resolve -> (obj, args, ctx) {
-      Place.all
+    argument :request, types.Boolean
+    resolve ->(obj, args, ctx) {
+      if ctx[:current_user] && args[:request]
+        ctx[:current_user].places
+      else
+        Place.all
+      end
     }
   end
 
@@ -14,6 +19,20 @@ Types::QueryType = GraphQL::ObjectType.define do
     argument :slug, !types.String
     resolve ->(obj, args, ctx) {
       Place.friendly.find args[:slug]
+    }
+  end
+
+  field :schedules do
+    type types[Types::ScheduleType]
+    argument :request, types.Boolean
+    resolve ->(obj, args, ctx) {
+      if ctx[:current_user]
+        if args[:request]
+          ctx[:current_user].schedules
+        else
+          ctx[:current_user].joined_schedules
+        end
+      end
     }
   end
 

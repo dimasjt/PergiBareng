@@ -51,6 +51,7 @@ class User < ApplicationRecord
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
   has_many :user_schedules, dependent: :nullify
+  has_many :joined_schedules, through: :user_schedules, source: "schedule"
 
   enum gender: GENDER
 
@@ -68,8 +69,12 @@ class User < ApplicationRecord
     nil
   end
 
+  def token_attribute
+    attributes.select { |key| %w[id email].include? key }
+  end
+
   def auth_token
-    JWT.encode(to_api_data(:self), User.secret_token)
+    JWT.encode(token_attribute, User.secret_token)
   end
 
   def hidden_email
