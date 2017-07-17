@@ -71,4 +71,8 @@ class User < ApplicationRecord
   def auth_token
     JWT.encode(to_api_data(:self), User.secret_token)
   end
+
+  def hidden_email
+    email.first + "*" * 10 + email.last
+  end
 end
