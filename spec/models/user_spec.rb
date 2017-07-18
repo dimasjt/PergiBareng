@@ -6,9 +6,9 @@ describe User, type: :model do
   it { should validate_presence_of(:gender).on(:update) }
   it { should validate_presence_of(:city).on(:update) }
 
-  context "validations" do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  context "validations" do
     it "valid birthdate" do
       user.birthdate = "10/10/1993"
       user.save
@@ -23,8 +23,6 @@ describe User, type: :model do
   end
 
   describe "#authenticate" do
-    let(:user) { create(:user) }
-
     it "should return user" do
       token = user.auth_token
       expect(User.authenticate(token)).to eq user
@@ -36,11 +34,18 @@ describe User, type: :model do
   end
 
   describe "#auth_token" do
-    let(:user) { create(:user) }
-
     it "should return jwt token" do
-      token = JWT.encode(user.to_api_data(:self), User.secret_token)
+      token = JWT.encode(user.token_attribute, User.secret_token)
       expect(user.auth_token).to eq(token)
+    end
+  end
+
+  describe "#token_attribute" do
+    it "should return attributes for token" do
+      expect(user.token_attribute.symbolize_keys).to eq(
+        id: user.id,
+        email: user.email
+      )
     end
   end
 end
