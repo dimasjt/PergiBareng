@@ -6,8 +6,8 @@ Types::PlaceType = GraphQL::ObjectType.define do
   field :description, types.String
   field :address, types.String
   field :slug, types.String
-  field :latitude, types.Int
-  field :longitude, types.Int
+  field :latitude, types.Float
+  field :longitude, types.Float
   field :image, Types::ImageType
 
   field :schedules do
