@@ -48,28 +48,15 @@ class User < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
 
-  include HasApi
-
   has_many :places, dependent: :destroy
   has_many :schedules, dependent: :destroy
   has_many :user_schedules, dependent: :nullify
+  has_many :joined_schedules, through: :user_schedules, source: "schedule"
 
   enum gender: GENDER
 
   validates :name, :birthdate, :gender, :city, presence: true, on: :update
   validates :birthdate, format: { with: BIRTHDATE_REGEX }, on: :update
-
-  def self.auth_api_attributes
-    %w[auth_token]
-  end
-
-  def self.self_api_attributes
-    %w[id email name birthdate avatar gender city created_at confirmed_at]
-  end
-
-  def self.nested_api_attributes
-    self_api_attributes
-  end
 
   def self.secret_token
     ENV["JWT_SECRET"]
@@ -82,7 +69,15 @@ class User < ApplicationRecord
     nil
   end
 
+  def token_attribute
+    attributes.select { |key| %w[id email].include? key }
+  end
+
   def auth_token
-    JWT.encode(to_api_data(:self), User.secret_token)
+    JWT.encode(token_attribute, User.secret_token)
+  end
+
+  def hidden_email
+    email.first + "*" * 10 + email.last
   end
 end

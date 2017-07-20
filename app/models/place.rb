@@ -28,24 +28,10 @@ class Place < ApplicationRecord
 
   searchkick locations: [:location]
 
-  include HasApi
-
   belongs_to :user
   has_many :schedules
 
   validates :name, :description, :address, presence: true
-
-  def self.index_api_attributes
-    %w[id name description image slug]
-  end
-
-  def self.show_api_attributes
-    index_api_attributes + %w[latitude longitude address created_at]
-  end
-
-  def self.nested_api_attributes
-    index_api_attributes
-  end
 
   def seach_data
     {

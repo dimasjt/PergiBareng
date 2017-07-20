@@ -2,14 +2,15 @@ import {
   SHOW_FLASH,
   CREATE_ERROR,
   HIDE_FLASH,
-} from "../constants";
+  APOLLO_MUTATION_ERROR,
+} from "../constants"
 
 const initializeState = {
   flash: {
     message: "",
     open: false,
   },
-};
+}
 
 function alert(state = initializeState, action) {
   switch (action.type) {
@@ -21,7 +22,15 @@ function alert(state = initializeState, action) {
           message: action.flash,
           open: true,
         },
-      };
+      }
+    case APOLLO_MUTATION_ERROR:
+      return {
+        ...state,
+        flash: {
+          message: action.error.message,
+          open: true,
+        },
+      }
     case HIDE_FLASH:
       return {
         ...state,
@@ -29,10 +38,10 @@ function alert(state = initializeState, action) {
           ...state.flash,
           open: false,
         },
-      };
+      }
     default:
-      return state;
+      return state
   }
 }
 
-export default alert;
+export default alert

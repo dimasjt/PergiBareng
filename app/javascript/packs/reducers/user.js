@@ -3,19 +3,19 @@ import {
   LOGGED_IN,
   LOGGED_OUT,
   USER_UPDATED,
-} from "../constants";
+} from "../constants"
 
 function user(state = null, action) {
   switch (action.type) {
     case USER_REGISTERED:
     case LOGGED_IN:
     case USER_UPDATED:
-      return action.user;
+      return action.user
     case LOGGED_OUT:
-      return null;
+      return null
     default:
-      return state;
+      return state
   }
 }
 
-export default user;
+export default user
