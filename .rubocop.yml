@@ -8,10 +8,10 @@ AllCops:
 Style/FrozenStringLiteralComment:
   EnforcedStyle: always
 
-Layout/EndOfLine:
+Style/Layout/EndOfLine:
   EnforcedStyle: lf
 
-Layout/IndentHeredoc:
+Style/Layout/IndentHeredoc:
   EnforcedStyle: powerpack
 
 Lint/AmbiguousBlockAssociation:
@@ -55,3 +55,9 @@ Style/ClassAndModuleChildren:
 
 Style/DocumentationMethod:
   RequireForNonPublicMethods: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false

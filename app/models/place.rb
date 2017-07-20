@@ -48,7 +48,7 @@ class Place < ApplicationRecord
   def slug_candidates
     [
       :name,
-      [:name, :id]
+      %i[name id]
     ]
   end
 end

@@ -6,7 +6,5 @@ AppSchema = GraphQL::Schema.define do
     "Not Found"
   end
 
-  rescue_from ActiveRecord::RecordInvalid do |message|
-    message.message
-  end
+  rescue_from ActiveRecord::RecordInvalid(&:message)
 end

@@ -37,8 +37,8 @@
 #
 
 class User < ApplicationRecord
-  GENDER = %w(other male female)
-  BIRTHDATE_REGEX = /\d{2}\/\d{2}\/\d{4}/
+  GENDER = %w[other male female].freeze
+  BIRTHDATE_REGEX = %r(\d{2}\/\d{2}\/\d{4})
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
