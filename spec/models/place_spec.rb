@@ -84,5 +84,24 @@ RSpec.describe Place, type: :model do
         )
       end
     end
+
+    describe "create place" do
+      let!(:user) { create(:user) }
+      let(:mutation) {
+        %(
+          mutation requestPlace($place: PlaceInput) {
+            requestPlace(place: $place) {
+              id
+              name
+            }
+          }
+        )
+      }
+      let(:variables) { attributes_for(:place) }
+
+      it "create place" do
+        result = execute(mutation, context: [variables.delete(:image)], variables: { place: variables })
+      end
+    end
   end
 end
